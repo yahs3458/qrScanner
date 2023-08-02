@@ -1,20 +1,44 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
-      Blank
+      PHARMACY COUNCIL OF INDIA  
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="center-container">
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<ion-button class="startScan" (click)="startScan()">
+  
+  <ion-icon name="scan-outline"></ion-icon> Start scan 
+</ion-button>
+<ion-label class="scaner">Scan the QR code on the PCI Website to sign in Directly </ion-label>
+
+
+
+<ion-button  (click)="reset()"  color="warning" *ngIf="scanResult">
+  <ion-icon slot="start" name="refresh"></ion-icon>
+ Reset
+</ion-button>
+<video #video [hidden]="!scanActive" width="100%"></video>
+
+
+<ion-button class="stop" (click)="stopScan()"  color="danger" *ngIf="scanActive">
+  <ion-icon slot="start" name="close"></ion-icon>
+ Stop 
+</ion-button>
+
+<canvas #canvas hidden></canvas>
+
+</div>
+
+<ion-card *ngIf="scanResult">
+  <ion-card-header>
+    <ion-card-title>QR CODE</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    {{ scanResult}}
+  </ion-card-content>
+</ion-card>
 </ion-content>

@@ -25,3 +25,33 @@
 #container a {
   text-decoration: none;
 }
+.scaner {
+  color: rgb(0, 0, 0);
+  opacity: 0.5; /* Adjust the opacity value as desired (0.0 to 1.0) */
+  margin-top: 20px;
+}
+/* Assuming the parent container of the button has a defined height, like the body element */
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px; /* Adjust the gap between the buttons as desired */
+}
+
+/* Adjust the width of the buttons if needed */
+.startScan,
+ion-button[ng-reflect-color="danger"] {
+  width: 120px;
+  margin-top:200px ;
+}
+.stop{
+  margin-bottom: 350px;
+}
