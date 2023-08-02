@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'menu',
     loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule)
   },
+  {
+    path: 'digital-sign',
+    loadChildren: () => import('./digital-sign/digital-sign.module').then( m => m.DigitalSignPageModule)
+  },
 
 ];
 
