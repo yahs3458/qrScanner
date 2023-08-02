@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'digital-sign',
     loadChildren: () => import('./digital-sign/digital-sign.module').then( m => m.DigitalSignPageModule)
   },
+  {
+    path: 'user-ditails',
+    loadChildren: () => import('./user-ditails/user-ditails.module').then( m => m.UserDitailsPageModule)
+  },
 
 ];
 

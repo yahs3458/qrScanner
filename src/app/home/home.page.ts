@@ -119,6 +119,7 @@ export class HomePage {
       ]
     });
     toast.present();
+    
     this.router.navigate(['/log-in'], { queryParams: { username: this.scanResult } });
   }
 }
