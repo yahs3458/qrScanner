@@ -1,4 +1,3 @@
-
 <div class="login-container">
   <div class="background"></div>
   <div class="img-container">
@@ -18,26 +17,28 @@
         required
       />
     </div>
-   
-
-
-    <div class="form-group">
-      <label id="passwordL" for="password">Password</label>
-      <div class="password-container">
-        <input
-          type="{{ showPassword ? 'text' : 'password' }}"
-          id="password"
-          name="password"
-          class="form-control"
-          placeholder=" Enter your password "
-          [(ngModel)]="password"
-          required
-        />
-        <ion-icon name="eye-outline" (click)="togglePasswordVisibility()">
-          {{ showPassword ? 'visibility_off' : 'visibility' }}
-        </ion-icon>
-      </div>
+    
+<div class="form-group">
+  <label id="passwordL" for="password">Password</label>
+  <div class="password-container">
+    <input
+      type="{{ showPassword ? 'text' : 'password' }}"
+      id="password"
+      name="password"
+      class="form-control"
+      placeholder="Enter your password"
+      [(ngModel)]="password"
+      required
+      minlength="8"
+    />
+    <ion-icon name="eye-outline" (click)="togglePasswordVisibility()">
+      {{ showPassword ? 'visibility_off' : 'visibility' }}
+    </ion-icon>
   </div>
-    <button class="btn btn-primary" (click)="onLogin()">Log in</button>
-  </form>
+  <!-- Add the error message -->
+  <div *ngIf="password.length < 8" class="error-message">Password must be at least 4 characters long.</div>
+</div>
+<button class="btn btn-primary" (click)="onLogin()" [disabled]="!isFormValid()">Log in</button>
+<!-- ... (remaining code) ... -->
+</form>
 </div>

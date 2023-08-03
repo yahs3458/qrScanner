@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { DigitalSignPageRoutingModule } from './digital-sign-routing.module';
+import { DigitalsignaturePageRoutingModule } from './digitalsignature-routing.module';
 
-import { DigitalSignPage } from './digital-sign.page';
+import { DigitalsignaturePage } from './digitalsignature.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DigitalSignPageRoutingModule
+    DigitalsignaturePageRoutingModule
   ],
-  declarations: [DigitalSignPage]
+  declarations: [DigitalsignaturePage]
 })
-export class DigitalSignPageModule {}
+export class DigitalsignaturePageModule {}

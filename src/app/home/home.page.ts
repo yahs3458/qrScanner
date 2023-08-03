@@ -105,18 +105,18 @@ export class HomePage {
   };
   async showQrToast() {
     const toast = await this.toastCtrl.create({
-      message: `Open ${this.scanResult}?`,
-      position: 'top',
-      buttons: [
-        {
-          text: 'Open',
-          handler: () => {
-            if (this.scanResult) {
-              window.open(this.scanResult, '_system', 'location=yes');
-            }
-          },
-        }
-      ]
+      // message: `Open ${this.scanResult}?`,
+      // position: 'top',
+      // buttons: [
+      //   {
+      //     text: 'Open',
+      //     handler: () => {
+      //       if (this.scanResult) {
+      //         window.open(this.scanResult, '_system', 'location=yes');
+      //       }
+      //     },
+      //   }
+      // ]
     });
     toast.present();
     

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { DigitalSignPage } from './digital-sign.page';
+import { DigitalsignaturePage } from './digitalsignature.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: DigitalSignPage
+    component: DigitalsignaturePage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class DigitalSignPageRoutingModule {}
+export class DigitalsignaturePageRoutingModule {}

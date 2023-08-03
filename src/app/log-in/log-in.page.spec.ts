@@ -15,3 +15,4 @@ describe('LogInPage', () => {
     expect(component).toBeTruthy();
   });
 });
+
