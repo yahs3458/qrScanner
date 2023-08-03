@@ -144,8 +144,9 @@ export class DigitalsignaturePage implements OnInit {
     // }
   }
 
-
+  
   onSaveSignature() {
+    
     if (this.signatureDataURL) {
       // Implement your logic here to save the signature (e.g., send to the server).
       console.log('Signature saved:', this.signatureDataURL);
@@ -159,6 +160,10 @@ export class DigitalsignaturePage implements OnInit {
       this.ctx.clearRect(0, 0, canvas.width, canvas.height);
       this.signatureDataURL = null; // Reset the signature data URL as the canvas is cleared.
       this.isDrawing = false; // Reset the drawing flag to allow the user to draw a new signature.
+    }
+    this.signatureDataURL = null;
+    if (this.ctx) {
+      this.ctx.clearRect(0, 0, this.signatureCanvas!.nativeElement.width, this.signatureCanvas!.nativeElement.height);
     }
   }
   @HostListener('window:resize', ['$event'])
