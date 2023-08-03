@@ -1,0 +1,11 @@
+.background-image {
+    --background: url(../../assets/Pharmacy_Council_of_India_Logo 4.jpg) no-repeat center center;
+    background-size: 150px; /* Adjust the size as needed */
+    height: 100%; /* Set the height to take up the entire viewport */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1f1f1; /* Add the grey background color here */
+  }
+  

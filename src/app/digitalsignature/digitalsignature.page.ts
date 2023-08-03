@@ -93,6 +93,14 @@ export class DigitalsignaturePage implements OnInit {
     //   this.renderer.listen(canvas, 'touchmove', (event) => this.onTouchMove(event));
     //   this.renderer.listen(canvas, 'touchend', () => this.onTouchEnd());
     // }
+    if (this.signatureCanvas && this.signatureCanvas.nativeElement) {
+      const canvas = this.signatureCanvas.nativeElement;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+    }
    
   }
   

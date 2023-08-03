@@ -1,28 +1,29 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
+    <ion-avatar slot="start">
+      <img src="../../assets/Pharmacy_Council_of_India_Logo 4.jpg" alt="pci" />
+    </ion-avatar>
     <ion-title>
-      PHARMACY COUNCIL OF INDIA  
+      PHARMACY COUNCIL OF INDIA
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Menu
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
+<ion-content class="background-image">
   <ion-grid>
     <ion-row>
       <ion-col size="6">
-        
-        <ion-button expand="full" (click)="goToDigitalSignaturePage()"><ion-icon name="id-card"></ion-icon> Signature</ion-button>
+        <ion-button expand="full" (click)="goToDigitalSignaturePage()">
+          <ion-icon name="finger-print"></ion-icon>
+          Signature
+        </ion-button>
       </ion-col>
       <ion-col size="6">
-        <ion-button expand="full">View Feedback ID</ion-button>
+        <ion-button expand="full">
+          <ion-icon name="person-circle"></ion-icon>
+          View Feedback ID
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

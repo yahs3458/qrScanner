@@ -1,7 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
+    <ion-avatar slot="start">
+      <img src="../../assets/Pharmacy_Council_of_India_Logo 4.jpg" alt="pci" />
+    </ion-avatar>
     <ion-title>
-      PHARMACY COUNCIL OF INDIA  
+      PHARMACY COUNCIL OF INDIA
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -14,25 +17,23 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="background-image">
   <ion-grid>
     <ion-row>
-      <ion-col size="12">
+      <ion-col size="12" class="username-col">
         <div *ngIf="username" class="username-label">
           Welcome, {{ username }}!
         </div>
-      </ion-col>
-      <ion-col size="6">
-        <ion-button expand="full" (click)="onOpenCanvas()">Sign here </ion-button>
+        <ion-button expand="half" (click)="onOpenCanvas()"><ion-icon name="finger-print-outline"></ion-icon>Sign here</ion-button>
       </ion-col>
     </ion-row>
     <div class="button-container">
       <ion-row>
         <ion-col size="6" class="centered">
-          <ion-button expand="full" [disabled]="!showCanvas" (click)="onSaveSignature()">Save Signature</ion-button>
+          <ion-button expand="full" [disabled]="!showCanvas" (click)="onSaveSignature()"><ion-icon name="save"></ion-icon>Save</ion-button>
         </ion-col>
         <ion-col size="6" class="centered">
-          <ion-button expand="full" [disabled]="!showCanvas" (click)="onResetCanvas()">Reset Canvas</ion-button>
+          <ion-button expand="full" [disabled]="!showCanvas" (click)="onResetCanvas()"><ion-icon name="refresh-circle"></ion-icon>Reset</ion-button>
         </ion-col>
       </ion-row>
     </div>
@@ -56,6 +57,6 @@
     <img [src]="signatureDataURL" alt="Digital Signature" />
   </div>
   <div class="submit-button-container">
-    <ion-button class="submit" expand="full" (click)="onSubmitSignature()">Submit Signature</ion-button>
+    <ion-button class="submit" expand="full" (click)="onSubmitSignature()">Submit<ion-icon name="checkmark-done-circle"></ion-icon></ion-button>
   </div>
 </ion-content>

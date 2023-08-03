@@ -1,44 +1,54 @@
-<div class="login-container">
-  <div class="background"></div>
-  <div class="img-container">
-    <img src="../../assets/Pharmacy_Council_of_India_Logo 4.jpg" alt="pci" />
-  </div>
-  <div class="login-header"></div>
-  <form class="login-form">
-    <div class="form-group">
-      <label id="usernameL" for="username">Username</label>
-      <input
-        type="text"
-        id="username"
-        name="username"
-        class="form-control"
-        placeholder="Enter your username"
-        [(ngModel)]="username"
-        required
-      />
+
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-avatar slot="start">
+      <img src="../../assets/Pharmacy_Council_of_India_Logo 4.jpg" alt="pci" />
+    </ion-avatar>
+    <ion-title>
+      PHARMACY COUNCIL OF INDIA
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="login-container">
+    <div class="background"></div>
+    <div class="img-container">
+      <img src="../../assets/Pharmacy_Council_of_India_Logo 4.jpg" alt="pci" />
     </div>
-    
-<div class="form-group">
-  <label id="passwordL" for="password">Password</label>
-  <div class="password-container">
-    <input
-      type="{{ showPassword ? 'text' : 'password' }}"
-      id="password"
-      name="password"
-      class="form-control"
-      placeholder="Enter your password"
-      [(ngModel)]="password"
-      required
-      minlength="8"
-    />
-    <ion-icon name="eye-outline" (click)="togglePasswordVisibility()">
-      {{ showPassword ? 'visibility_off' : 'visibility' }}
-    </ion-icon>
+    <div class="login-header"></div>
+    <ion-list class="login-form">
+      <ion-item class="form-group">
+        <ion-label id="usernameL" position="stacked">Username</ion-label>
+        <ion-input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="Enter your username"
+          [(ngModel)]="username"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <ion-item class="form-group">
+        <ion-label id="passwordL" position="stacked">Password</ion-label>
+        <div >
+          <ion-input
+            type="{{ showPassword ? 'text' : 'password' }}"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            [(ngModel)]="password"
+            required
+            minlength="8"
+          ></ion-input>
+          <ion-icon class="passwordbtn" name="eye-outline" (click)="togglePasswordVisibility()"></ion-icon>
+        </div>
+        <div *ngIf="password.length < 8" class="error-message">Password must be at least 8 characters long.</div>
+      </ion-item>
+    </ion-list>
+
+    <ion-button class="btn btn-primary" expand="full" (click)="onLogin()" [disabled]="!isFormValid()">Log in</ion-button>
+    <!-- ... (remaining code) ... -->
   </div>
-  <!-- Add the error message -->
-  <div *ngIf="password.length < 8" class="error-message">Password must be at least 4 characters long.</div>
-</div>
-<button class="btn btn-primary" (click)="onLogin()" [disabled]="!isFormValid()">Log in</button>
-<!-- ... (remaining code) ... -->
-</form>
-</div>
+</ion-content>
