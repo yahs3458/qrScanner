@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { LoadingController, Platform, ToastController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import jsQR from 'jsqr';
 import { Router } from '@angular/router';
 @Component({
@@ -13,7 +14,7 @@ export class HomePage {
   @ViewChild('video', { static: false }) video: ElementRef | undefined;
   @ViewChild('canvas', { static: false }) canvas: ElementRef | undefined;
 
-  constructor(private toastCtrl: ToastController, private loadingCTRL: LoadingController, private plt: Platform , private router: Router) {
+  constructor(private toastCtrl: ToastController, private loadingCTRL: LoadingController, private plt: Platform , private router: Router,private navCtrl: NavController) {
 
     const isInStandaloneMode = () =>
       'standalone' in window.navigator && window.navigator['standalone'];
@@ -98,6 +99,12 @@ export class HomePage {
 
   stopScan() {
     this.scanActive = false;
+    if (this.videoElement && this.videoElement.srcObject) {
+      const stream = this.videoElement.srcObject as MediaStream;
+      const tracks = stream.getTracks();
+      tracks.forEach((track) => track.stop());
+      this.videoElement.srcObject = null;
+    }
 
   };
   reset() {
@@ -120,6 +127,7 @@ export class HomePage {
     });
     toast.present();
     
-    this.router.navigate(['/log-in'], { queryParams: { username: this.scanResult } });
-  }
+    this.navCtrl.navigateForward(['/log-in'], { queryParams: { username: this.scanResult } });
 }
+  }
+

@@ -38,11 +38,20 @@
 
   <!-- Signature Canvas -->
   <div *ngIf="showCanvas" class="signature-container">
-    <canvas #signatureCanvas width="400" height="200" (mousedown)="startDrawing($event)" (mousemove)="draw($event)" (mouseup)="endDrawing()"></canvas>
+    <canvas #signatureCanvas width="800" height="400"
+    (mousedown)="startDrawing($event)"
+    (mousemove)="draw($event)"
+    (mouseup)="endDrawing()"
+    (touchstart)="startDrawing($event)"
+    (touchmove)="draw($event)"
+    (touchend)="endDrawing()">
+  </canvas>
+
   </div>
 
   <!-- Display Signature -->
   <div *ngIf="signatureDataURL" class="signature-image">
     <img [src]="signatureDataURL" alt="Digital Signature" />
   </div>
+  <ion-button expand="full" (click)="onSubmitSignature()">Submit Signature</ion-button>
 </ion-content>
