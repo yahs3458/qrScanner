@@ -26,8 +26,8 @@
   text-decoration: none;
 }
 .scaner {
-  color: rgba(8, 8, 8, 0.61);
-  opacity: 50; /* Adjust the opacity value as desired (0.0 to 1.0) */
+  color: #000;
+  // opacity: 50; /* Adjust the opacity value as desired (0.0 to 1.0) */
   margin-top: 20px;
 }
 /* Assuming the parent container of the button has a defined height, like the body element */
@@ -55,3 +55,13 @@ ion-button[ng-reflect-color="danger"] {
 .stop{
   margin-bottom: 350px;
 }
+// .background-image {
+//   --background: url(../../assets/qr-code-modern-icon-or-symbol-vector-18038131.jpg) no-repeat center center;
+//   background-size: 150px; /* Adjust the size as needed */
+//   height: 100%; /* Set the height to take up the entire viewport */
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   background-color: #f1f1f1; /* Add the grey background color here */
+// }

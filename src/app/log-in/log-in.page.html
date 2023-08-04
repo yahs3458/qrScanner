@@ -1,24 +1,25 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-avatar slot="start">
+    <!-- <ion-avatar slot="start">
       <img src="../../assets/Pharmacy_Council_of_India_Logo 4.jpg" alt="pci" />
-    </ion-avatar>
-    <ion-title>
-      PHARMACY COUNCIL OF INDIA
+    </ion-avatar> -->
+    <ion-title class="tittle">
+   PHARMACY COUNCIL OF INDIA
     </ion-title>
-    <ion-avatar slot="end">
-      <img src="../../assets/nic-logo-nic-logo-1-bilingual-white-1-01.jpg" alt="NIC Logo" />
-    </ion-avatar>
+   
   </ion-toolbar>
+  
 </ion-header>
-
 <ion-content>
-  <div class="login-container">
-    <div class="background"></div>
-    <div class="img-container">
-      <img src="../../assets/Pharmacy_Council_of_India_Logo 4.jpg" alt="pci" />
+
+  <div class="img-container">
+    <img src="../../assets/Pharmacy_Council_of_India_Logo 4.jpg" alt="pci" />
+  </div>
+
+  <ion-card class="login">
+    <div class="login-header">
+      <!-- Your login header content goes here -->
     </div>
-    <div class="login-header"></div>
     <ion-list class="login-form">
       <ion-item class="form-group">
         <ion-label id="usernameL" position="stacked">Username</ion-label>
@@ -34,7 +35,7 @@
 
       <ion-item class="form-group">
         <ion-label id="passwordL" position="stacked">Password</ion-label>
-        <div >
+        <div>
           <ion-input
             type="{{ showPassword ? 'text' : 'password' }}"
             id="password"
@@ -44,13 +45,25 @@
             required
             minlength="8"
           ></ion-input>
-          <ion-icon class="passwordbtn" name="eye-outline" (click)="togglePasswordVisibility()"></ion-icon>
         </div>
-        <div *ngIf="password.length < 8" class="error-message">Password must be at least 8 characters long.</div>
       </ion-item>
-    </ion-list>
 
-    <ion-button class="btn btn-primary" expand="full" (click)="onLogin()" [disabled]="!isFormValid()">Log in</ion-button>
-    <!-- ... (remaining code) ... -->
-  </div>
+      <!-- Show a message for incorrect credentials (assuming you have an 'invalidCredentials' boolean variable) -->
+      <p *ngIf="invalidCredentials" class="error-message">Invalid credentials. Please try again.</p>
+
+      <!-- Toggle password visibility button -->
+      <ion-button fill="clear" (click)="togglePasswordVisibility()" class="small-button">
+          {{ showPassword ? 'Hide Password' : 'Show Password' }}
+        </ion-button>
+
+      <!-- Log in button -->
+      <ion-button expand="block" (click)="onLogin()" class="small-button1">
+          Log In
+        </ion-button>
+
+      <!-- Forgot password link (optional) -->
+      <p class="forgot-password-link" (click)="onForgotPasswordClick()">Forgot Password?</p>
+    </ion-list>
+  </ion-card>
 </ion-content>
+

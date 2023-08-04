@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { AuthenticationLoginService } from '../services/authentication-login.service';
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.page.html',
@@ -9,27 +10,25 @@ import { ActivatedRoute } from '@angular/router';
 export class LogInPage implements OnInit {
 
 
-  constructor(private router : Router,private route: ActivatedRoute) { }
+  constructor(private router: Router, private route: ActivatedRoute,  private authService:AuthenticationLoginService  ) {}
 
-
+ 
   signature: string | null = null;
   username!: string;
   password!: string;
   showPassword: boolean | undefined;
+  invalidCredentials: boolean = false;
+
   ngOnInit() {
     this.password = '';
     this.route.queryParams.subscribe((params) => {
       this.username = params['username'] || null;
       if (this.route.snapshot.queryParams['reload']) {
-        // Reset the signature field here (clear the signature)
-        // For example, you can set the signature to an empty string or null.
-        // Replace the following line with the logic to reset the signature field as needed.
         this.signature = null;
       }
-      // Now you can use the 'username' value as needed in your log-in page
     });
-    
   }
+
   public togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
@@ -47,21 +46,31 @@ export class LogInPage implements OnInit {
     return password.length >= 4;
   }
 
-  ionViewWillEnter() {
-    // Retrieve the username from the query parameter
-    this.username = this.route.snapshot.queryParams['username'];
-  }
-
   onLogin() {
     if (!this.isFormValid()) {
       // Show an error message or handle form validation here
       return;
     }
+    this.authService.login(this.username, this.password).subscribe((result) => {
+      if (result === true) {
+        // Successful login
+        this.invalidCredentials = false;
+        this.router.navigate(['/menu'], { queryParams: { username: this.username } }); // Pass username as query parameter
+      } else {
+        // Invalid credentials
+        this.invalidCredentials = true;
+      }
+    });
+  
+}
 
-    console.log('Logging in...');
-    console.log('Username:', this.username);
-    console.log('Password:', this.password);
-    this.router.navigate(['/menu'], { queryParams: { username: this.username } });
+  ionViewWillEnter() {
+    this.username = this.route.snapshot.queryParams['username'];
+  }
+  onForgotPasswordClick() {
+    // Implement your logic for the "Forgot Password" functionality here
+    // For example, you can navigate to a "Forgot Password" page
+    // this.router.navigate(['/forgot-password']);
   }
 }
 

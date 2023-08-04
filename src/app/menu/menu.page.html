@@ -12,17 +12,27 @@
   </ion-toolbar>
 </ion-header>
 
-
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/log-in"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Menu Page</ion-title>
+  </ion-toolbar>
+ 
+</ion-header>
 <ion-content class="background-image">
+  <h2>Welcome, {{ username }}</h2>
   <ion-grid>
     <ion-row>
-      <ion-col size="6">
-        <ion-button expand="full" (click)="goToDigitalSignaturePage()">
+      <ion-col size="5">
+        
+  <ion-button expand="block" (click)="goToDigitalSignaturePage()">
           <ion-icon name="finger-print"></ion-icon>
           Signature
         </ion-button>
       </ion-col>
-      <ion-col size="6">
+      <ion-col size="5">
         <ion-button expand="full">
           <ion-icon name="person-circle"></ion-icon>
           View Feedback ID

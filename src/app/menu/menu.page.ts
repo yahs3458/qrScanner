@@ -13,7 +13,9 @@ export class MenuPage implements OnInit {
   ngOnInit() {
     this.username = this.route.snapshot.queryParams['username'];
   }
+ 
   goToDigitalSignaturePage() {
+    // Pass the username as a query parameter
     this.router.navigate(['/digitalsignature'], { queryParams: { username: this.username } });
   }
 }
