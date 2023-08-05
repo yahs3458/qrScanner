@@ -48,15 +48,16 @@ export class LogInPage implements OnInit {
 
   onLogin() {
   
-    this.authService.login(this.username,this.password).subscribe((res)=>{
-      if(res){
-        this.invalidCredentials=false;
-        console.log('res -> ',res);
-        this.router.navigate(['/menu'], { queryParams: { username: this.username } });
-      }else{
-        this.invalidCredentials=true;
+    this.authService.login(this.username, this.password).subscribe((result) => {
+      if (result === true) {
+        // Successful login
+        this.invalidCredentials = false;
+        this.router.navigate(['/menu'], { queryParams: { username: this.username } }); // Pass username as query parameter
+      } else {
+        // Invalid credentials
+        this.invalidCredentials = true;
       }
-    })
+    });
   
 }
 
