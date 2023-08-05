@@ -6,39 +6,31 @@
     <ion-title>
       PHARMACY COUNCIL OF INDIA
     </ion-title>
-  
   </ion-toolbar>
 </ion-header>
-
-
-
 
 <ion-content [fullscreen]="true" class="background-image">
   <div class="center-container">
 
-<ion-button class="startScan" (click)="startScan()">
-  
-  <ion-icon name="scan-outline"></ion-icon> Start scan 
-</ion-button>
-<ion-label class="scaner">Scan the QR code on the PCI Website to sign in Directly </ion-label>
+    <ion-button class="startScan" (click)="startScan()">
+      <ion-icon name="scan-outline"></ion-icon> Start scan
+    </ion-button>
 
+    <ion-label class="scaner">Scan the QR code on the PCI Website to sign in Directly</ion-label>
 
+    <ion-button (click)="reset()" color="warning" *ngIf="scanResult">
+      <ion-icon slot="start" name="refresh"></ion-icon>
+      Reset
+    </ion-button>
 
-<ion-button  (click)="reset()"  color="warning" *ngIf="scanResult">
-  <ion-icon slot="start" name="refresh"></ion-icon>
- Reset
-</ion-button>
-<video #video [hidden]="!scanActive" width="100%"></video>
+    <ion-button class="stop" (click)="stopScan()" color="danger" *ngIf="scanActive">
+      <ion-icon slot="start" name="close"></ion-icon>
+      Stop
+    </ion-button>
 
+    <video #video [hidden]="!scanActive" width="100%"></video>
 
-<ion-button class="stop" (click)="stopScan()"  color="danger" *ngIf="scanActive">
-  <ion-icon slot="start" name="close"></ion-icon>
- Stop 
-</ion-button>
+    <canvas #canvas hidden></canvas>
 
-<canvas #canvas hidden></canvas>
-
-</div>
-
-
+  </div>
 </ion-content>
