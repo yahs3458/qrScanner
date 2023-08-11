@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './authentication/login/login.component';
 
 const routes: Routes = [
   {
@@ -23,15 +24,12 @@ const routes: Routes = [
     path: 'menu',
     loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule)
   },
-  
-  {
-    path: 'user-ditails',
-    loadChildren: () => import('./user-ditails/user-ditails.module').then( m => m.UserDitailsPageModule)
-  },
+ 
   {
     path: 'digitalsignature',
     loadChildren: () => import('./digitalsignature/digitalsignature.module').then( m => m.DigitalsignaturePageModule)
   },
+  { path: 'logIn', component: LoginComponent },
 
 ];
 

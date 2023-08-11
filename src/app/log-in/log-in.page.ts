@@ -1,74 +1,115 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { AuthenticationLoginService } from '../services/authentication-login.service';
+import { AuthService } from 'src/shared/service/auth.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { AbstractControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { LocalStorageService, LocalStorage } from 'ngx-webstorage';
+import { ToastrService } from 'ngx-toastr';
+
+
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.page.html',
   styleUrls: ['./log-in.page.scss'],
 })
 export class LogInPage implements OnInit {
+  username: string = ''; // Add this line to define the 'username' variable
+  showPassword: boolean = false;
+  UserAuthReq: any;
+  public loading: boolean = false;
+  loginForm: FormGroup;
+  password: string = '';
+  btnLogin: string = "Login";
+  constructor(private router: Router, private authService: AuthService,
+    private formBuilder: FormBuilder,
 
+    private jwtHelper: JwtHelperService
+  ) {
+    this.UserAuthReq = { UserName: '', Password: '' }
 
-  constructor(private router: Router, private route: ActivatedRoute,  private authService:AuthenticationLoginService  ) {}
+    this.loginForm = this.formBuilder.group(
+      {
+        userName: [
+          '',
+          [
+            Validators.required
+            // Validators.minLength(6),
+            // Validators.maxLength(10)
+          ]
+        ],
+        password: [null, Validators.compose([
+          Validators.required
+          // 2. check whether the entered password has a number
 
- 
-  signature: string | null = null;
-  username!: string;
-  password!: string;
-  showPassword: boolean | undefined;
-  invalidCredentials: boolean = false;
+        ])
+        ],
 
+      });
+  }
   ngOnInit() {
-    this.password = '';
-    this.route.queryParams.subscribe((params) => {
-      this.username = params['username'] || null;
-      if (this.route.snapshot.queryParams['reload']) {
-        this.signature = null;
+    // Retrieve the JSON data from localStorage
+    const storedDataString = localStorage.getItem('myData');
+
+    if (storedDataString) {
+      const storedData = JSON.parse(storedDataString);
+      console.log(storedData); // Output: { key1: 'value1', key2: 'value2' }
+    }
+  }
+
+
+
+
+  get f(): { [key: string]: AbstractControl } {
+    return this.loginForm.controls;
+  }
+
+  onSubmit() {
+    this.btnLogin = "verifying..."
+    if (this.loginForm.invalid) {
+      this.btnLogin = "Please validate form"
+      return;
+    }
+    this.loading = true;
+    this.authService.login(this.loginForm.value).subscribe(data => {
+      if (data.isAuthSuccessful) {
+        this.getBootInfo()
       }
+      else {
+        localStorage.clear();
+        this.btnLogin = data.processingStatus.message
+        // this.toastr.info(data.processingStatus.message); // Use the ToastrService to show the message
+      }
+      this.loading = false;
+    },
+      () => {
+        this.loading = false;
+      })
+
+
+  }
+  getBootInfo() {
+    this.authService.getBootInfo().subscribe({
+      next: (res) => {
+        this.set_Cache(res);
+      }
+    })
+  }
+
+  set_Cache(boot: any) {
+    localStorage['bootInfo'] = JSON.stringify(boot)
+    localStorage.setItem("userName", boot['user'].name);
+  
+
+    this.authService.getuserName();
+    this.authService.getUserFname();
+
+    this.btnLogin = "success"
+
+
+    this.router.navigate(['admin', boot.allowed_workspaces[0].name.toLowerCase(), 'menu'], {
+      queryParams: { username: boot['user'].name } // Pass the username as a query parameter
     });
   }
-
-  public togglePasswordVisibility(): void {
-    this.showPassword = !this.showPassword;
-  }
-
-  // public isFormValid(): boolean {
-  //   return this.validateEmail(this.username) && this.validatePasswordLength(this.password);
-  // }
-
-  private validateEmail(email: string): boolean {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
-
-  // private validatePasswordLength(password: string): boolean {
-  //   return password.length >= 4;
-  // }
-
-  onLogin() {
-  
-    this.authService.login(this.username, this.password).subscribe((result) => {
-      if (result === true) {
-        // Successful login
-        this.invalidCredentials = false;
-        this.router.navigate(['/menu'], { queryParams: { username: this.username } }); // Pass username as query parameter
-      } else {
-        // Invalid credentials
-        this.invalidCredentials = true;
-      }
-    });
-  
 }
-
-  ionViewWillEnter() {
-    this.username = this.route.snapshot.queryParams['username'];
-  }
-  onForgotPasswordClick() {
-    // Implement your logic for the "Forgot Password" functionality here
-    // For example, you can navigate to a "Forgot Password" page
-    // this.router.navigate(['/forgot-password']);
-  }
-}
-
-

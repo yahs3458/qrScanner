@@ -1,95 +1,109 @@
+/* Add CSS styles to log-in.component.css */
 
+/* Center the content vertically and horizontally */
 ion-content {
-  --background: #ffffff;
-}
-
-.login-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  padding: 20px;
 }
 
+/* Style the login container */
+.login-container {
+  padding: 20px 1em;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Adjust the button styles */
 .small-button {
-  font-size: 13px;
-  padding: 6px 12px;
-  margin: 0 auto;
+  background-color: white; /* Set button background color to white */
+  color: black; /* Set button text color to black */
+  font-size: 14px;
+  padding: 10px 16px;
+  margin: 10px 0;
 }
 
+/* Style the image container */
 .img-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-}
-
-.small-button1 {
-  font-size: 18px;
-  padding: 4px 6px;
-  min-width: 50px;
-  max-width: 100px;
+  margin-top: 40px;
+  margin-bottom: 1em;
 }
 
 .img-container img {
-  margin-top: 50px;
   max-width: 50%;
-  align-self: flex-start;
+  border-radius: 50%;
+  border: 2px solid black; /* Set image border color to black */
+  margin-bottom: 1em; /* Add 1em space at the bottom of the image */
 }
 
-.login-form {
-  width: 100%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
+/* Style the form group */
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
+/* Style the error message */
 .error-message {
-  font-size: 12px;
+  font-size: 14px;
   color: red;
-  margin-top: 5px;
+  margin-top: 8px;
 }
 
+/* Adjust the password container styles */
 .password-container {
   display: flex;
   align-items: center;
   border: 1px solid #f6f6f6;
-  border-radius: 88px;
-  padding: 5px;
+  border-radius: 8px;
+  padding: 4px;
 }
 
 .password-container ion-input {
-  flex: 1;
   margin-bottom: 0;
 }
 
-.btn {
-  --background: #0C99FF;
-  --border-radius: 40px;
-  --border: 3px solid #000;
+/* Adjust the button styles */
+.small-button1 {
+  font-size: 16px;
+  padding: 12px;
+  min-height: 60px;
+  min-width: 100px;
+  /* background-color: #7DAD3D; */
+  color: white;
 }
 
-/* Media queries for responsiveness */
-/* Tablets (e.g., iPad) */
-@media only screen and (min-width: 768px) and (max-width: 1180px) {
- 
-  ion-content {
+/* Style the background of the heading */
+ion-title.tittle {
+  background-color: #1A1E3D;
+  color: white;
+  padding: 1em 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Update styles for two lines */
+ion-title.tittle span {
+  display: block;
+}
+
+/* Add padding to the page */
+ion-content {
+  --background: #ffffff;
+  padding: 0 2em;
+}
+
+
+
+
+
+
+
+
+/* ion-content {
     --background: #ffffff;
   }
-  .login {
-    width: 50%;
-    max-width: 600px;
-    margin: 0 auto; /* This centers the element horizontally */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* This centers the child elements vertically */
-  }
+  
   .login-container {
     display: flex;
     flex-direction: column;
@@ -126,7 +140,7 @@ ion-content {
   
   .login-form {
     width: 100%;
-    max-width: 6000px;
+    max-width: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -159,94 +173,182 @@ ion-content {
     --background: #0C99FF;
     --border-radius: 40px;
     --border: 3px solid #000;
-  }
-}
-
-/* Laptops and Desktops */
-@media only screen and (min-width: 1025px) {
-  /* Additional styles for laptops and desktops */
-  /* Add your laptop/desktop-specific styles here */
+  } */
   
-  ion-content {
-    --background: #ffffff;
-  }
-  .login {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto; /* This centers the element horizontally */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* This centers the child elements vertically */
-  }
-  .login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    padding: 20px;
+  /* Media queries for responsiveness */
+  /* Tablets (e.g., iPad) */
+  @media only screen and (min-width: 768px) and (max-width: 1180px) {
+   
+    ion-content {
+      --background: #ffffff;
+    }
+    .login {
+      width: 50%;
+      max-width: 600px;
+      margin: 0 auto; /* This centers the element horizontally */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; /* This centers the child elements vertically */
+    }
+    .login-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 20px;
+    }
+    
+    .small-button {
+      font-size: 13px;
+      padding: 6px 12px;
+      margin: 0 auto;
+    }
+    
+    .img-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .small-button1 {
+      font-size: 18px;
+      padding: 4px 6px;
+      min-width: 50px;
+      max-width: 100px;
+    }
+    
+    .img-container img {
+      margin-top: 50px;
+      max-width: 50%;
+      align-self: flex-start;
+    }
+    
+    .login-form {
+      width: 100%;
+      max-width: 6000px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .error-message {
+      font-size: 12px;
+      color: red;
+      margin-top: 5px;
+    }
+    
+    .password-container {
+      display: flex;
+      align-items: center;
+      border: 1px solid #f6f6f6;
+      border-radius: 88px;
+      padding: 5px;
+    }
+    
+    .password-container ion-input {
+      flex: 1;
+      margin-bottom: 0;
+    }
+    
+    .btn {
+      --background: #0C99FF;
+      --border-radius: 40px;
+      --border: 3px solid #000;
+    }
   }
   
-  .small-button {
-    font-size: 13px;
-    padding: 6px 12px;
-    margin: 0 auto;
+  /* Laptops and Desktops */
+  @media only screen and (min-width: 1025px) {
+    /* Additional styles for laptops and desktops */
+    /* Add your laptop/desktop-specific styles here */
+    
+    ion-content {
+      --background: #ffffff;
+    }
+    .login {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto; /* This centers the element horizontally */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; /* This centers the child elements vertically */
+    }
+    .login-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 20px;
+    }
+    
+    .small-button {
+      font-size: 13px;
+      padding: 6px 12px;
+      margin: 0 auto;
+    }
+    
+    .img-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .small-button1 {
+      font-size: 18px;
+      padding: 4px 6px;
+      min-width: 50px;
+      max-width: 100px;
+    }
+    
+    .img-container img {
+      margin-top: 50px;
+      max-width: 50%;
+      align-self: flex-start;
+    }
+    
+    .login-form {
+      width: 50%;
+      max-width: 6000px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .error-message {
+      font-size: 12px;
+      color: red;
+      margin-top: 5px;
+    }
+    
+    .password-container {
+      display: flex;
+      align-items: center;
+      border: 1px solid #f6f6f6;
+      border-radius: 88px;
+      padding: 5px;
+    }
+    
+    .password-container ion-input {
+      flex: 1;
+      margin-bottom: 0;
+    }
+    
+    .btn {
+      --background: #0C99FF;
+      --border-radius: 40px;
+      --border: 3px solid #000;
+    }
   }
   
-  .img-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .small-button1 {
-    font-size: 18px;
-    padding: 4px 6px;
-    min-width: 50px;
-    max-width: 100px;
-  }
-  
-  .img-container img {
-    margin-top: 50px;
-    max-width: 50%;
-    align-self: flex-start;
-  }
-  
-  .login-form {
-    width: 50%;
-    max-width: 6000px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .error-message {
-    font-size: 12px;
-    color: red;
-    margin-top: 5px;
-  }
-  
-  .password-container {
-    display: flex;
-    align-items: center;
-    border: 1px solid #f6f6f6;
-    border-radius: 88px;
-    padding: 5px;
-  }
-  
-  .password-container ion-input {
-    flex: 1;
-    margin-bottom: 0;
-  }
-  
-  .btn {
-    --background: #0C99FF;
-    --border-radius: 40px;
-    --border: 3px solid #000;
-  }
-}

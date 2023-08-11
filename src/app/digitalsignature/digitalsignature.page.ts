@@ -161,6 +161,7 @@ export class DigitalsignaturePage implements OnInit {
     } else {
       console.log('No signature to save.');
     }
+    
   }
   onResetCanvas() {
     if (this.signatureCanvas && this.signatureCanvas.nativeElement && this.ctx) {

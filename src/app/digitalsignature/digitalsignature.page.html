@@ -1,12 +1,12 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-avatar slot="start">
-      <img src="../../assets/Pharmacy_Council_of_India_Logo 4.jpg" alt="pci" />
+      <img src="../../assets/icon.png" alt="pci" />
     </ion-avatar>
-    <ion-title>
+    <ion-title class="tittle">
       PHARMACY COUNCIL OF INDIA
     </ion-title>
-   
+    
   </ion-toolbar>
 </ion-header>
 
@@ -28,7 +28,7 @@
         <div *ngIf="username" class="username-label">
           Welcome, {{ username }}!
         </div>
-        <ion-button expand="half" (click)="onOpenCanvas()"><ion-icon name="finger-print-outline"></ion-icon>Sign here</ion-button>
+        <ion-button expand="half" (click)="onOpenCanvas()" color="success"><ion-icon name="finger-print-outline" ></ion-icon>Sign here</ion-button>
       </ion-col>
     </ion-row>
     <div class="button-container">

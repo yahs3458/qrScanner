@@ -110,6 +110,7 @@ export class HomePage {
   reset() {
     this.scanResult = null;
   };
+  
   async showQrToast() {
     const toast = await this.toastCtrl.create({
       // message: `Open ${this.scanResult}?`,
@@ -124,7 +125,9 @@ export class HomePage {
       //     },
       //   }
       // ]
+      
     });
+    
     toast.present();
     
     this.router.navigate(['/log-in'], { queryParams: { username: this.scanResult } });
