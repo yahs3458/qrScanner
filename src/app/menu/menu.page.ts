@@ -19,19 +19,7 @@ export class MenuPage implements OnInit {
     // Pass the username as a query parameter
     this.router.navigate(['/digitalsignature'], { queryParams: { username: this.username } });
   }
-  getBootInfo() {
-    this.authService.getBootInfo().subscribe({
-      next: (res) => {
-        this.set_Cache(res);
-       
-
-      },
-      error: (res) => {
-        console.error('Error fetching boot info:');
-    
-      }
-    })
-  }
+ 
   
   set_Cache(boot: any) {
     localStorage['bootInfo'] = JSON.stringify(boot)

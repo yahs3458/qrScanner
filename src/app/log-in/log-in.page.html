@@ -1,15 +1,18 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <!-- <ion-avatar slot="start">
-      <img src="../../assets/Pharmacy_Council_of_India_Logo 4.jpg" alt="pci" />
-    </ion-avatar> -->
-    <ion-title class="tittle">
+  
+    <ion-title class="tittle" >
       PHARMACY COUNCIL OF INDIA
     </ion-title>
+  
   </ion-toolbar>
+<!-- its all good -->
 </ion-header>
 <ion-content>
- 
+  <div class="img-container">
+    <img src="../../assets/icon.png" alt="pci" />
+  </div>
+
   <ion-card class="login">
     <div class="login-header">
       <!-- Your login header content goes here -->
@@ -17,41 +20,41 @@
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-signin form-login" name="form">
       <ion-item class="form-group">
-       
-        <ion-label id="usernameL" position="stacked">Username</ion-label>
-        <ion-input
-          type="text"
-          id="username"
-          name="username"
-          formControlName="userName" 
-          placeholder="Enter your username"
-        
-          required
-        ></ion-input>
+        <ion-label id="usernameL" position="stacked"><b>Username</b></ion-label>
+
+
+        <ion-input type="text" id="username" name="username" formControlName="userName"
+          placeholder="Enter your username" required></ion-input>
       </ion-item>
 
       <ion-item class="form-group">
-        <ion-label id="passwordL" position="stacked">Password</ion-label>
-        <div>
-          <ion-input
-            type="{{ showPassword ? 'text' : 'password' }}"
-            id="password"
-            name="password"
-            placeholder="Enter your password"
-            formControlName="password" 
-           
-            
-          ></ion-input>
-        </div>
+        <ion-label id="passwordL" position="stacked"><b>Password</b></ion-label>
+        <ion-input
+          type="{{ showPassword ? 'text' : 'password' }}"
+          id="password"
+          name="password"
+          placeholder="Enter your password"
+          formControlName="password"
+        ></ion-input>
+        <ion-icon
+          class="togglepassword"
+          slot="end"
+          name="{{ showPassword ? 'eye-off' : 'eye' }}"
+          (click)="togglePasswordVisibility()"
+        ></ion-icon>
       </ion-item>
+      
+      
+      
+      
 
       <!-- Show a message for incorrect credentials (assuming you have an 'invalidCredentials' boolean variable) -->
       <!-- Toggle password visibility button -->
       <!-- Log in button -->
-      <ion-button expand="block" (click)="onSubmit()" class="small-button1"color="success">
-  {{btnLogin}}
-   
+      <ion-button expand="block" (click)="onSubmit()" class="small-button1" color="success">
+        {{btnLogin}}
+
       </ion-button>
-   </form>
+    </form>
   </ion-card>
 </ion-content>

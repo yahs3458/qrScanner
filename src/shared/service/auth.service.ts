@@ -32,8 +32,8 @@ import { SettingsService } from './settings.service';
    
   
     get isLoggedIn(): boolean {
-      // let authToken = localStorage.getItem('access_token');
-      // return authToken !== null ? true : false;
+      let authToken = localStorage.getItem('access_token');
+      return authToken !== null ? true : false;
       const token = localStorage.getItem("access_token");
       // && !this.jwtHelper.isTokenExpired(token) 
       if (token && !this.jwtHelper.isTokenExpired(token)) {
@@ -63,8 +63,8 @@ import { SettingsService } from './settings.service';
     public saveToken(token: string): void {
       localStorage.removeItem('access_token');
       localStorage.setItem('access_token', token);
-      // localStorage.removeItem('refreshToken');
-      // localStorage.setItem('refreshToken', token);    
+      localStorage.removeItem('refreshToken');
+      localStorage.setItem('refreshToken', token);    
     }
     doLogout() {
       localStorage.clear();

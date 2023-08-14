@@ -58,7 +58,9 @@ export class LogInPage implements OnInit {
     }
   }
 
-
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
 
   get f(): { [key: string]: AbstractControl } {
@@ -90,10 +92,9 @@ export class LogInPage implements OnInit {
 
   }
   getBootInfo() {
-    this.authService.getBootInfo().subscribe({
-      next: (res) => {
-        this.set_Cache(res);
-      }
+    this.authService.getBootInfo().subscribe(d => {
+      this.set_Cache(d)
+
     })
   }
 

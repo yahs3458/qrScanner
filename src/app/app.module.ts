@@ -12,9 +12,9 @@ import { NotifierModule } from 'angular-notifier';
 import { AuthService } from 'src/shared/service/auth.service';
 import { AuthInterceptor } from 'src/shared/service/auth-interceptor';
 import { LogInPageModule } from './log-in/log-in.module';
-import { LoginComponent } from './authentication/login/login.component';
+
 import { ReactiveFormsModule } from '@angular/forms';
-import { AuthenticationModule } from './authentication/authentication.module';
+
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -34,9 +34,8 @@ export function tokenGetter() {
     LogInPageModule,
     ReactiveFormsModule,
     IonicModule,
-    AuthenticationModule
+
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },AuthService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
