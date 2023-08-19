@@ -2,13 +2,13 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
-  production: false,
-  API_BASE_URL: "https://webapi.pciapps.org/api/",
-  API_ROOT_FILE_URL: "https://webapi.pciapps.org",
-  API_ROOT_URL: "https://webapi.pciapps.org/"
+export const environment ={
+  production : false,
+  API_BASE_URL : "https:/stage1.iclarics.com/api/",
+  API_ROOT_FILE_URL : "https://stage1.iclarics.com",
+  API_ROOT_URL : "https://stage1.iclarics.com",
 
-};
+}
 
 /*
  * For easier debugging in development mode, you can import the following file

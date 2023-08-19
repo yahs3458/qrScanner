@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./log-in.page.scss'],
 })
 export class LogInPage implements OnInit {
-  username: string = ''; // Add this line to define the 'username' variable
+  username: string = ''; 
   showPassword: boolean = false;
   UserAuthReq: any;
   public loading: boolean = false;
@@ -23,6 +23,7 @@ export class LogInPage implements OnInit {
   password: string = '';
   btnLogin: string = "Login";
   constructor(private router: Router, private authService: AuthService,
+    private route:ActivatedRoute,
     private formBuilder: FormBuilder,
 
     private jwtHelper: JwtHelperService
@@ -49,6 +50,11 @@ export class LogInPage implements OnInit {
       });
   }
   ngOnInit() {
+
+    
+    this.route.queryParams.subscribe(params => {
+      this.username = params['userName'];
+    });
     // Retrieve the JSON data from localStorage
     const storedDataString = localStorage.getItem('myData');
 
@@ -56,6 +62,7 @@ export class LogInPage implements OnInit {
       const storedData = JSON.parse(storedDataString);
       console.log(storedData); // Output: { key1: 'value1', key2: 'value2' }
     }
+
   }
 
   togglePasswordVisibility() {
@@ -108,9 +115,12 @@ export class LogInPage implements OnInit {
 
     this.btnLogin = "success"
 
+    this.router.navigate(['user-info'], {
+      queryParams: { username: boot['user'].full_name }
+    });
 
     this.router.navigate(['admin', boot.allowed_workspaces[0].name.toLowerCase(), 'menu'], {
-      queryParams: { username: boot['user'].name } // Pass the username as a query parameter
+      queryParams: { username: boot['user'].full_name } // Pass the username as a query parameter
     });
   }
 }

@@ -4,7 +4,7 @@ import {  tap } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { SettingsService } from './settings.service';
-
+import { UserInfoPage } from 'src/app/user-info/user-info.page';
 
 @Injectable({
     providedIn: 'root'
@@ -71,9 +71,5 @@ import { SettingsService } from './settings.service';
       this.route.navigate(['login']);
     }
    
-  
-  
-    
-  
   }
   

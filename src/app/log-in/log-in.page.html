@@ -8,7 +8,7 @@
   </ion-toolbar>
 <!-- its all good -->
 </ion-header>
-<ion-content>
+<ion-content scroll-y="false">
   <div class="img-container">
     <img src="../../assets/icon.png" alt="pci" />
   </div>
@@ -17,16 +17,19 @@
     <div class="login-header">
       <!-- Your login header content goes here -->
     </div>
-
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-signin form-login" name="form">
       <ion-item class="form-group">
         <ion-label id="usernameL" position="stacked"><b>Username</b></ion-label>
-
-
-        <ion-input type="text" id="username" name="username" formControlName="userName"
-          placeholder="Enter your username" required></ion-input>
+        <ion-input
+          type="text"
+          id="username"
+          name="username"
+          formControlName="userName"
+          placeholder="Enter your username"
+          [(ngModel)]="username" 
+        ></ion-input>
+       
       </ion-item>
-
       <ion-item class="form-group">
         <ion-label id="passwordL" position="stacked"><b>Password</b></ion-label>
         <ion-input
@@ -43,14 +46,7 @@
           (click)="togglePasswordVisibility()"
         ></ion-icon>
       </ion-item>
-      
-      
-      
-      
 
-      <!-- Show a message for incorrect credentials (assuming you have an 'invalidCredentials' boolean variable) -->
-      <!-- Toggle password visibility button -->
-      <!-- Log in button -->
       <ion-button expand="block" (click)="onSubmit()" class="small-button1" color="success">
         {{btnLogin}}
 

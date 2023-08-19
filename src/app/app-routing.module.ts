@@ -35,11 +35,14 @@ const routes: Routes = [
         path: ':workspace/menu', // Dynamic segment for workspace name
         loadChildren: () => import('./menu/menu.module').then(m => m.MenuPageModule)
       },
-      // Other child routes for 'admin' if needed
     ]
   },
+  {
+    path: 'user-info',
+    loadChildren: () => import('./user-info/user-info.module').then( m => m.UserInfoPageModule)
+  },
 
-  // { path: "**", component: LoginComponent }
+ 
 
 ];
 

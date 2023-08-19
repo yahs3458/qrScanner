@@ -31,6 +31,17 @@ export class MenuPage implements OnInit {
 
 
   }
+  navigate(index: number) {switch (index) {
+   
+      case 1:
+        this.router.navigate(['/user-info']);
+        break;
+      }
+    }
+  logout() {
+   
+    this.router.navigate(['/login']); 
+  }
 }
 
 

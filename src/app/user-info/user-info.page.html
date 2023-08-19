@@ -1,0 +1,52 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="claim" color="celeste" [ngStyle]="{'background-color':'#1A1E3D'}">
+    <ion-buttons slot="start">
+      <ion-menu-toggle menu="main-menuId1">
+        <ion-button color="light">
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+    </ion-buttons>
+    <h3 class="claimForm-title" style="color:aliceblue">User Profile</h3>
+  </ion-toolbar>
+</ion-header>
+
+<ion-menu menuId="main-menuId1" slot="start" side="start" contentId="main-content1">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content scrollY="true">
+    <div class="container">
+      <ion-list>
+        <!-- Add your menu items here -->
+        <ion-item (click)="navigate(0)">
+          <ion-icon name="home" style="margin-right: 10px; color: chocolate"></ion-icon>
+          <ion-label>Home</ion-label>
+        </ion-item>
+        <ion-button expand="full" color="danger" (click)="logout()">
+          Log Out
+        </ion-button>
+      </ion-list>
+    </div>
+  </ion-content>
+</ion-menu>
+<ion-content [fullscreen]="true" id="main-content1" class="ion-padding">
+  <div class="profile-container">
+    <div class="profile-header">
+      <img src="{{ clgData.user.user_image }}" alt="User Avatar" class="avatar" />
+    
+    </div>
+
+    <div class="profile-details">
+      <h3>Profile Details</h3>
+      <ul>
+        <li><strong>Username:{{clgData.user.full_name}}</strong></li>
+        <li><strong>Email:</strong> {{clgData.user.email}}</li>
+        <li><strong>Contact:</strong> </li>
+      </ul>
+    </div>
+
+  </div>
+</ion-content>
