@@ -7,14 +7,19 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class DigitalSignService {
-APIBaseUrl: string | undefined;
-APIurl = 'InstituteDeclaration/add_digitalSign'
-  constructor(private http:HttpClient) {
-    this.APIBaseUrl =environment.API_BASE_URL;
-   }
-
-   postSignature(signatureData: any): Observable<any> {
-    const url = `${this.APIBaseUrl}${this.APIurl}`;
-    return this.http.post(url, signatureData);
-  }
+  APIGetUrl = 'InstituteDeclaration/get_instituteDeclaration';
+  APIBaseUrl: string | undefined;
+  APIurl = 'InstituteDeclaration/updateSignature'
+    constructor(private http:HttpClient) {
+      this.APIBaseUrl =environment.API_BASE_URL;
+     }
+  
+     getSignature(url: string) : Observable<any> {
+      return this.http.get(this.APIBaseUrl + this.APIGetUrl );
+    }
+  
+     postSignature(signatureData: any): Observable<any> {
+      const url = `${this.APIBaseUrl}${this.APIurl}`;
+      return this.http.post(url, signatureData);
+    }
 }

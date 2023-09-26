@@ -7,7 +7,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { JwtModule } from '@auth0/angular-jwt';
-import { FORMLY_CONFIG } from '@ngx-formly/core';
+
 import { NotifierModule } from 'angular-notifier';
 import { AuthService } from 'src/shared/service/auth.service';
 import { AuthInterceptor } from 'src/shared/service/auth-interceptor';

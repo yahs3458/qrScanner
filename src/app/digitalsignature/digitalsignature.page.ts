@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, HostListener }
 import { ActivatedRoute, Router } from '@angular/router';
 import { DigitalSignService } from 'src/shared/service/digital-sign.service';
 import { ToastController, NavController } from '@ionic/angular';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-digitalsignature',
   templateUrl: './digitalsignature.page.html',
@@ -12,6 +13,8 @@ export class DigitalsignaturePage implements OnInit {
   showCanvas: boolean = false;
   saveButtonClicked = false;
   submitButtonDisabled = true;
+  apiResponse: any;
+
   @ViewChild('signatureCanvas', { static: false }) signatureCanvas: ElementRef<HTMLCanvasElement> | undefined;
   private ctx: CanvasRenderingContext2D | any;
   private isDrawing: boolean = false;
@@ -21,11 +24,15 @@ export class DigitalsignaturePage implements OnInit {
   private lastY: number = 0;
 
   constructor(private digitalSignService: DigitalSignService,
-     private router: Router, 
-     private route: ActivatedRoute
-     ,private toastController: ToastController,
-     private navCtrl: NavController,
+     private toastController: ToastController,
+     private router: Router,
+     private sanitizer:DomSanitizer,
+    
      ) { }
+     capturedsignatureImageBlob: Blob | null = null;
+     signatureimage: SafeUrl | null = null;
+     loading: boolean = false;
+     capturedImageName: string | null = null;
 
   //for android event 
 
@@ -77,7 +84,9 @@ export class DigitalsignaturePage implements OnInit {
     this.isDrawing = false;
     this.submitButtonDisabled = false;
   }
-
+  navigate(ind: number) {
+    this.router.navigate(['/dashboard']);
+}
 
 
   onOpenCanvas() {
@@ -154,58 +163,34 @@ export class DigitalsignaturePage implements OnInit {
   }
 
 
-  async onSaveSignature() {
-
+  onSaveSignature() {
     if (this.signatureDataURL) {
-      const signatureData = {
-        base64Image: this.signatureDataURL,
-        imagename: 'my-signature.png' // Update with the appropriate image name
-      };
-      console.log('Signature Data:', signatureData);
-      
-
-      this.digitalSignService.postSignature(signatureData).subscribe(
-        (response) => {
-          console.log('Signature saved:', response);
-          this.submitButtonDisabled = false; // You can handle success response here
-        },
-        (error) => {
-          console.error('Error saving signature:', error);
-          // You can handle error here
-        }
-      );
+      const byteString = atob(this.signatureDataURL.split(',')[1]);
+      const buffer = new ArrayBuffer(byteString.length);
+      const uintArray = new Uint8Array(buffer);
+  
+      for (let i = 0; i < byteString.length; i++) {
+        uintArray[i] = byteString.charCodeAt(i);
+      }
+  
+      const blob = new Blob([buffer], { type: 'image/jpeg' });
+  
+      // Save the Blob and image name
+      this.capturedsignatureImageBlob = blob;
+      this.capturedImageName = 'signature.jpeg';
+      console.log(this.capturedsignatureImageBlob)
+  
+      // Display the saved signature
+      const objectURL = URL.createObjectURL(blob);
+      this.signatureimage = this.sanitizer.bypassSecurityTrustUrl(objectURL);
     } else {
       console.log('No signature to save.');
     }
+  
     this.saveButtonClicked = true;
     this.submitButtonDisabled = false;
-
-    //submit button functionality 
-
-    if (this.signatureDataURL) {
-      // Show success toast
-      const toast = await this.toastController.create({
-        message: 'Signature submitted successfully!',
-        duration: 3000,
-        position: 'bottom', // Set the position of the toast
-        color: 'success' // Set the color of the toast
-      });
-      toast.present();
-      
-      // Navigate to the specified route
-      this.navCtrl.navigateForward('/digitalsignature', { queryParams: { reload: true } });
-    } else {
-      // Show error toast
-      const toast = await this.toastController.create({
-        message: 'Please provide a signature before submitting.',
-        duration: 3000,
-        position: 'bottom',
-        color: 'danger' // Set the color of the toast
-      });
-      toast.present();
-    }
-  
   }
+
 
 
   onResetCanvas() {
@@ -235,28 +220,80 @@ export class DigitalsignaturePage implements OnInit {
   onResize(event: Event) {
     // Handle canvas resizing if required
   }
-  navigate(index: number) {switch (index) {
-    case 0:
-      this.router.navigate(['/menu']);
-      break;
-      case 1:
-        this.router.navigate(['/user-info']);
-        break;
-      }
-    }
+  postSignature(data: FormData) {
+
+    this.digitalSignService.postSignature(data).subscribe({
+      next: (res) => {
+        console.log('Response from server:', res);
+       
+      },
+      error: (error) => {
+        console.error('Error while posting data:', error);
+      },
+    });
+  }
 
 
-  logout() {
+  async onSubmit() {
    
-    this.router.navigate(['/login']); 
+    if (
+      this.capturedsignatureImageBlob
+    ) {
+      const formData = new FormData();
+      
+      formData.append('signature', this.capturedsignatureImageBlob);
+     
+
+      // Log the data before making the HTTP request
+      console.log('Data to be submitted:', formData);
+
+      this.postSignature(formData);
+
+      const toast = await this.toastController.create({
+        message: 'Data submitted successfully!',
+        duration: 3000,
+        position: 'bottom',
+        color: 'dark',
+      });
+      toast.present();
+    } else {
+      const toast = await this.toastController.create({
+        message:
+          'Please provide an image, a signature, and a declaration text before submitting.',
+        duration: 3000,
+        position: 'bottom',
+        color: 'danger',
+      });
+      toast.present();
+    }
+  }
+  displaySignature() {
+    if (this.apiResponse && this.apiResponse.signature1) {
+      // Assuming this.apiResponse.signature1 contains the URL of the signature image
+      // Set the signature image to be displayed
+      this.signatureimage = this.sanitizer.bypassSecurityTrustUrl(this.apiResponse.signature1);
+    }
   }
 
 
   ngOnInit() {
-    this.onOpenCanvas();
-    this.submitButtonDisabled = true;
+    // this.ionLoaderService.autoLoader();
 
-    this.username = this.route.snapshot.queryParams['username'];
+    this.onOpenCanvas();
+    this.loading = true;  // Set loading to true while fetching data
+    this.digitalSignService.getSignature('name').subscribe(
+      (response) => {
+        this.apiResponse = response;
+        this.displaySignature();
+        this.loading = false;
+      },
+      (error) => {
+        console.error('Error fetching API data:', error);
+        // Handle the error here, e.g., display an error message to the user
+      }
+    );
+    
+  
 
     if (this.signatureCanvas && this.signatureCanvas.nativeElement) {
       const canvas = this.signatureCanvas.nativeElement;
