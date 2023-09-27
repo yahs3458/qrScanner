@@ -16,7 +16,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'log-in',
+    path: 'login',
     loadChildren: () => import('./log-in/log-in.module').then(m => m.LogInPageModule)
   },
   {

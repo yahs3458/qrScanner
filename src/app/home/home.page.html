@@ -15,6 +15,9 @@
     <ion-button class="startScan" (click)="startScan()">
       <ion-icon name="scan-outline"></ion-icon> Start scan
     </ion-button>
+    <video #video [hidden]="!scanActive" width="100%"></video>
+
+    <canvas #canvas hidden></canvas>
 
     <ion-label class="scaner">Scan the QR code on the PCI Website to sign in Directly</ion-label>
 
@@ -28,9 +31,7 @@
       Stop
     </ion-button>
 
-    <video #video [hidden]="!scanActive" width="100%"></video>
-
-    <canvas #canvas hidden></canvas>
+    
 
   </div>
 </ion-content>

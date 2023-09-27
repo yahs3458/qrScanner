@@ -9,7 +9,7 @@ import { AuthService } from 'src/shared/service/auth.service';
 export class MenuPage implements OnInit {
   username: string | null = null;
 
-  constructor(private router: Router ,private route: ActivatedRoute, private authService: AuthService,) { }
+  constructor(    private auth:AuthService,private router: Router ,private route: ActivatedRoute, private authService: AuthService,) { }
 
   ngOnInit() {
     this.username = this.route.snapshot.queryParams['username'];
@@ -38,10 +38,8 @@ export class MenuPage implements OnInit {
         break;
       }
     }
-  logout() {
-   
-    this.router.navigate(['/login']); 
+    logout() {
+      this.auth.doLogout();
+    }
+
   }
-}
-
-

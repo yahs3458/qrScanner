@@ -119,7 +119,7 @@ export class HomePage {
     
     toast.present();
     
-    this.router.navigate(['/log-in'],
+    this.router.navigate(['/login'],
      { queryParams: { userName: this.scanResult } });
 }
   }

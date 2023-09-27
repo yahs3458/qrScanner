@@ -85,7 +85,7 @@ export class DigitalsignaturePage implements OnInit {
     this.submitButtonDisabled = false;
   }
   navigate(ind: number) {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/menu']);
 }
 
 
@@ -94,15 +94,7 @@ export class DigitalsignaturePage implements OnInit {
     this.signatureDataURL = null;
   }
   ngAfterViewInit() {
-    // Initialize touch event listeners for the signatureCanvas element
-    // if (this.renderer && this.signatureCanvas && this.signatureCanvas.nativeElement) {
-    //   const canvas = this.signatureCanvas.nativeElement;
 
-    //   // Add touch event listeners using Renderer2
-    //   this.renderer.listen(canvas, 'touchstart', (event) => this.onTouchStart(event));
-    //   this.renderer.listen(canvas, 'touchmove', (event) => this.onTouchMove(event));
-    //   this.renderer.listen(canvas, 'touchend', () => this.onTouchEnd());
-    // }
     if (this.signatureCanvas && this.signatureCanvas.nativeElement) {
       const canvas = this.signatureCanvas.nativeElement;
       const ctx = canvas.getContext('2d');
@@ -165,23 +157,26 @@ export class DigitalsignaturePage implements OnInit {
 
   onSaveSignature() {
     if (this.signatureDataURL) {
-      const byteString = atob(this.signatureDataURL.split(',')[1]);
-      const buffer = new ArrayBuffer(byteString.length);
-      const uintArray = new Uint8Array(buffer);
-  
-      for (let i = 0; i < byteString.length; i++) {
-        uintArray[i] = byteString.charCodeAt(i);
+      const byteCharacters = atob(this.signatureDataURL.split(',')[1]);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
       }
+      const byteArray = new Uint8Array(byteNumbers);
   
-      const blob = new Blob([buffer], { type: 'image/jpeg' });
-  
+      // const blob = new Blob([byteArray], { type: 'image/png' });
+      let file = new File([byteArray],'my_signature_' +'.png',{
+        type:'image/png',
+        lastModified: new Date().getTime(),
+      });
       // Save the Blob and image name
-      this.capturedsignatureImageBlob = blob;
-      this.capturedImageName = 'signature.jpeg';
+      this.capturedsignatureImageBlob = file;
+      this.capturedImageName = `image_${new Date().getTime()}.png`;
+      // console.log("blob",blob,"name:",this.capturedImageName );
       console.log(this.capturedsignatureImageBlob)
   
       // Display the saved signature
-      const objectURL = URL.createObjectURL(blob);
+      const objectURL = URL.createObjectURL(file);
       this.signatureimage = this.sanitizer.bypassSecurityTrustUrl(objectURL);
     } else {
       console.log('No signature to save.');
@@ -190,7 +185,7 @@ export class DigitalsignaturePage implements OnInit {
     this.saveButtonClicked = true;
     this.submitButtonDisabled = false;
   }
-
+  
 
 
   onResetCanvas() {
@@ -235,15 +230,12 @@ export class DigitalsignaturePage implements OnInit {
 
 
   async onSubmit() {
-   
+    const formData = new FormData();
     if (
-      this.capturedsignatureImageBlob
+      this.capturedsignatureImageBlob 
     ) {
-      const formData = new FormData();
-      
-      formData.append('signature', this.capturedsignatureImageBlob);
      
-
+      formData.append('signature1', this.capturedsignatureImageBlob);
       // Log the data before making the HTTP request
       console.log('Data to be submitted:', formData);
 
