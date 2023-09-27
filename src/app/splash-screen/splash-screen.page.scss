@@ -1,14 +1,91 @@
-ion-content{
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
-    align-items: center;
+// .splash {
+//   text-align: center;
+//   background: radial-gradient(#fff, #000);
+//   background-size: 100vw 100vh; 
+//   overflow: hidden;
+//   padding-top: 40vh;
+// }
+
+// .txt {
+//   text-align: center;
+//   font-family: 'Roboto';
+//   font-size: 12vmin;
+//   font-weight: 700;
+//   animation: netflix_style 3.5s infinite;
+//   outline: none;
+//   white-space: nowrap;
+// }
+// @keyframes netflix_style {
+//   0% {
+//     text-shadow: makelongshadow(100,1);
+//     color:#f3f3f3;
+//     transform: scale(1.5, 1.5);
+//   }
+//   10% {
+//     text-shadow: makelongshadow(100,1.5);
+//     color:#f3f3f3;
+//     transform: scale(1.5, 1.5);
+//   }
+//   15% {
+//     color:#f3f3f3;
+//   }
+//   20% {    
+//     color:#e90418;
+//     text-shadow: none;
+//     transform: scale(1.1, 1.1);
+//   }
+//   75% {
+//     opacity: 1;
+//   }
+//   80% {
+//     opacity: 0;    
+//     color:#e90418;
+//     transform: scale(0.85, 0.9);
+//   }
+//   100% {
+//     opacity: 0;
+//   }
+// }
+
+@keyframes appearOneByOne {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
   }
-  img{
-    position: fixed;
-    left: calc(50% - 230px / 2 - 0.5px);
-    top: calc(50% - 268px / 2 - 77px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
+}
+
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+}
+
+.centered-container img {
+  width: 100px; /* Adjust the width */
+  height: 100px; /* Adjust the height */
+  opacity: 0; /* Initially hide the images */
+  position: absolute;
+  top: 40%; /* Center vertically */
+  transform: translateY(-50%);
+}
+
+.centered-container img:nth-child(1) {
+  left: 15%;
+  animation: appearOneByOne 0.5s ease forwards 0.5s; /* Delay the first image */
+}
+
+.centered-container img:nth-child(2) {
+  left: 150px; /* Adjust the left value for spacing */
+  animation: appearOneByOne 0.5s ease forwards 1s; /* Delay the second image */
+}
+
+.centered-container img:nth-child(3) {
+  left:240px; /* Adjust the left value for spacing */
+  animation: appearOneByOne 0.5s ease forwards 1.5s; /* Delay the third image */
+}

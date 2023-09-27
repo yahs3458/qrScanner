@@ -112,13 +112,7 @@ export class HomePage {
   };
   
   async showQrToast() {
-    const toast = await this.toastCtrl.create({
-   
-      
-    });
-    
-    toast.present();
-    
+
     this.router.navigate(['/login'],
      { queryParams: { userName: this.scanResult } });
 }

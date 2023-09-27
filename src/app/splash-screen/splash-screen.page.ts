@@ -12,7 +12,7 @@ export class SplashScreenPage  {
   ionViewDidEnter(){
     setTimeout(()=>{
      this.router.navigate(['home'])
-    },2000)
+    },4000)
   }
 
  

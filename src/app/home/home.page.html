@@ -1,9 +1,6 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-avatar slot="start">
-      <img src="../../assets/Pharmacy_Council_of_India_Logo 4.jpg" alt="pci" />
-    </ion-avatar>
-    <ion-title>
+<ion-header>
+  <ion-toolbar class="top-toolbar">
+    <ion-title class="title">
       PHARMACY COUNCIL OF INDIA
     </ion-title>
   </ion-toolbar>
@@ -12,8 +9,8 @@
 <ion-content [fullscreen]="true" class="background-image">
   <div class="center-container">
 
-    <ion-button class="startScan" (click)="startScan()">
-      <ion-icon name="scan-outline"></ion-icon> Start scan
+    <ion-button class="startScan" (click)="startScan()" color="dark">
+      Start scan
     </ion-button>
     <video #video [hidden]="!scanActive" width="100%"></video>
 

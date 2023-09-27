@@ -1,16 +1,10 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-  
-    <ion-title class="tittle" >
-      PHARMACY COUNCIL OF INDIA
-    </ion-title>
-  
-  </ion-toolbar>
-<!-- its all good -->
-</ion-header>
+<ion-toolbar class="login-header ion-padding">
+  <h1 style="margin-top: 10px;">PHARMACY COUNCIL OF INDIA</h1>
+</ion-toolbar>
+
 <ion-content scroll-y="false">
-  <div class="img-container">
-    <img src="../../assets/icon.png" alt="pci" />
+  <div>
+    <ion-img src="../assets/PCI_Logo-all-theme.png" alt="Logo" style="height: 200px;"></ion-img>
   </div>
 
   <ion-card class="login">
@@ -47,7 +41,7 @@
         ></ion-icon>
       </ion-item>
 
-      <ion-button expand="block" (click)="onSubmit()" class="small-button1" color="success">
+      <ion-button expand="block" (click)="onSubmit()" class="small-button1" color="dark">
         {{btnLogin}}
 
       </ion-button>

@@ -11,6 +11,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 export class DigitalsignaturePage implements OnInit {
   username: string | null = null;
   showCanvas: boolean = false;
+  uploadButtonClicked: boolean = false;
   saveButtonClicked = false;
   submitButtonDisabled = true;
   apiResponse: any;
@@ -33,7 +34,7 @@ export class DigitalsignaturePage implements OnInit {
      signatureimage: SafeUrl | null = null;
      loading: boolean = false;
      capturedImageName: string | null = null;
-
+name:string="";
   //for android event 
 
   onTouchStart(event: TouchEvent) {
@@ -156,6 +157,7 @@ export class DigitalsignaturePage implements OnInit {
 
 
   onSaveSignature() {
+    this.uploadButtonClicked = true;
     if (this.signatureDataURL) {
       const byteCharacters = atob(this.signatureDataURL.split(',')[1]);
       const byteNumbers = new Array(byteCharacters.length);
@@ -220,7 +222,7 @@ export class DigitalsignaturePage implements OnInit {
     this.digitalSignService.postSignature(data).subscribe({
       next: (res) => {
         console.log('Response from server:', res);
-       
+       this.name=res.pkId
       },
       error: (error) => {
         console.error('Error while posting data:', error);
@@ -231,11 +233,13 @@ export class DigitalsignaturePage implements OnInit {
 
   async onSubmit() {
     const formData = new FormData();
+    this.submitButtonDisabled = !this.uploadButtonClicked;
     if (
-      this.capturedsignatureImageBlob 
+      this.capturedsignatureImageBlob
     ) {
      
       formData.append('signature1', this.capturedsignatureImageBlob);
+      formData.append('name',this.name);
       // Log the data before making the HTTP request
       console.log('Data to be submitted:', formData);
 
@@ -259,34 +263,23 @@ export class DigitalsignaturePage implements OnInit {
       toast.present();
     }
   }
-  displaySignature() {
-    if (this.apiResponse && this.apiResponse.signature1) {
-      // Assuming this.apiResponse.signature1 contains the URL of the signature image
-      // Set the signature image to be displayed
-      this.signatureimage = this.sanitizer.bypassSecurityTrustUrl(this.apiResponse.signature1);
-    }
-  }
-
-
-  ngOnInit() {
-    // this.ionLoaderService.autoLoader();
-
-    this.onOpenCanvas();
-    this.loading = true;  // Set loading to true while fetching data
-    this.digitalSignService.getSignature('name').subscribe(
+  getsignature(){
+    this.digitalSignService.getSignature().subscribe(
       (response) => {
-        this.apiResponse = response;
-        this.displaySignature();
-        this.loading = false;
+       this.name=response==null?'':response.name
+       this.loading=false;
       },
       (error) => {
         console.error('Error fetching API data:', error);
         // Handle the error here, e.g., display an error message to the user
       }
     );
-    
-  
-
+  }
+  ngOnInit() {
+    this.onOpenCanvas();
+    this.loading = true;  // Set loading to true while fetching data
+  this.getsignature()
+console.log(this.username)
     if (this.signatureCanvas && this.signatureCanvas.nativeElement) {
       const canvas = this.signatureCanvas.nativeElement;
 
