@@ -13,7 +13,6 @@ import { UserInfoPage } from 'src/app/user-info/user-info.page';
   export class AuthService {
     bootinfo: any = {}
     constructor(private authServices: AuthenticationService,  private route: Router,
-         private jwtHelper: JwtHelperService,
          private settingsService:SettingsService
     ) {
   
@@ -31,18 +30,18 @@ import { UserInfoPage } from 'src/app/user-info/user-info.page';
     }
    
   
-    get isLoggedIn(): boolean {
-      let authToken = localStorage.getItem('access_token');
-      return authToken !== null ? true : false;
-      const token = localStorage.getItem("access_token");
-      // && !this.jwtHelper.isTokenExpired(token) 
-      if (token && !this.jwtHelper.isTokenExpired(token)) {
-        return true;
-      }
-      else {
-        return false;
-      }
-    }
+    // get isLoggedIn(): boolean {
+    //   let authToken = localStorage.getItem('access_token');
+    //   return authToken !== null ? true : false;
+    //   const token = localStorage.getItem("access_token");
+    //   // && !this.jwtHelper.isTokenExpired(token) 
+    //   if (token && !this.jwtHelper.isTokenExpired(token)) {
+    //     return true;
+    //   }
+    //   else {
+    //     return false;
+    //   }
+    // }
   
     getUserFname(): any {
       let userData = localStorage.getItem('firstName');
@@ -63,8 +62,8 @@ import { UserInfoPage } from 'src/app/user-info/user-info.page';
     public saveToken(token: string): void {
       localStorage.removeItem('access_token');
       localStorage.setItem('access_token', token);
-      localStorage.removeItem('refreshToken');
-      localStorage.setItem('refreshToken', token);    
+      // localStorage.removeItem('refreshToken');
+      // localStorage.setItem('refreshToken', token);    
     }
     doLogout() {
       localStorage.clear();

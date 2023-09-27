@@ -7,8 +7,7 @@ export const environment ={
   API_BASE_URL : "https:/stage1.iclarics.com/api/",
   API_ROOT_FILE_URL : "https://stage1.iclarics.com",
   API_ROOT_URL : "https://stage1.iclarics.com",
-
-}
+};
 
 /*
  * For easier debugging in development mode, you can import the following file

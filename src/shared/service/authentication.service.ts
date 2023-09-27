@@ -20,21 +20,21 @@ export class AuthenticationService {
       return this.http.post(this.APIBaseUrl + apiUrl.API_AdminLogin_URL, UserAuthRequest,
         {
           headers: this.getHeaders()
-        }).pipe();
+        })
   
     } 
   
-    refreshToken() {
+    // refreshToken() {
   
-      let userName = localStorage.getItem('userName')
-      var requestBody = { refreshToken: localStorage.getItem('refreshToken'), userName: userName }
-      return this.http.post(this.APIBaseUrl + apiUrl.API_Refresh_Token_URL, requestBody);
-    }
-  
+    //   let userName = localStorage.getItem('userName')
+    //   var requestBody = { refreshToken: localStorage.getItem('refreshToken'), userName: userName }
+    //   return this.http.post(this.APIBaseUrl + apiUrl.API_Refresh_Token_URL, requestBody);
+    // }
     getHeaders() {
       let headerOption = new HttpHeaders();
       headerOption.append('Content-Type', 'application/json');
       headerOption.append('X-Requested-With', 'XMLHttpRequest');
+      headerOption.append('Access-Control-Allow-Origin', '*');
       return headerOption;
     }
     // userRegistration(user: any): Observable<any> {
