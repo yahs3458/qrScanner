@@ -13,6 +13,7 @@ import { UserInfoPage } from 'src/app/user-info/user-info.page';
   export class AuthService {
     bootinfo: any = {}
     constructor(private authServices: AuthenticationService,  private route: Router,
+        //  private jwtHelper: JwtHelperService,
          private settingsService:SettingsService
     ) {
   

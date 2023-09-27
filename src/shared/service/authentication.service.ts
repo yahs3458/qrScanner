@@ -9,21 +9,19 @@ import { apiUrl } from './api-URLs';
     providedIn: 'root'
   })
 export class AuthenticationService {
-    private APIBaseUrl: string
-    constructor(private http: HttpClient
-    ) {
-  
-      this.APIBaseUrl = environment.API_BASE_URL;
-    }
-  
-    userlogin(UserAuthRequest: UserAuthRequest): Observable<any> {
-      return this.http.post(this.APIBaseUrl + apiUrl.API_AdminLogin_URL, UserAuthRequest,
-        {
-          headers: this.getHeaders()
-        })
-  
-    } 
-  
+  private APIBaseUrl: string;
+  constructor(private http: HttpClient) {
+    this.APIBaseUrl = environment.API_BASE_URL;
+  }
+
+  userlogin(UserAuthRequest: UserAuthRequest): Observable<any> {
+    return this.http
+      .post(this.APIBaseUrl + apiUrl.API_AdminLogin_URL, UserAuthRequest, {
+        headers: this.getHeaders(),
+      })
+
+  }
+
     // refreshToken() {
   
     //   let userName = localStorage.getItem('userName')
