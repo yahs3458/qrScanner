@@ -2,49 +2,28 @@
   <h1 style="margin-top: 10px;">PHARMACY COUNCIL OF INDIA</h1>
 </ion-toolbar>
 
-<ion-content scroll-y="false">
+<ion-content class="ion-padding">
   <div>
     <ion-img src="../assets/PCI_Logo-all-theme.png" alt="Logo" style="height: 200px;"></ion-img>
   </div>
 
-  <ion-card class="login">
-    <div class="login-header">
-      <!-- Your login header content goes here -->
-    </div>
-    <form [formGroup]="loginForm"  class="form-signin form-login" name="form">
-      <ion-item class="form-group">
-        <ion-label id="usernameL" position="stacked"><b>Username</b></ion-label>
-        <ion-input
-          type="text"
-          id="username"
-          name="username"
-          formControlName="userName"
-          placeholder="Enter your username"
-          [(ngModel)]="username" 
-        ></ion-input>
-       
-      </ion-item>
-      <ion-item class="form-group">
-        <ion-label id="passwordL" position="stacked"><b>Password</b></ion-label>
-        <ion-input
-          type="{{ showPassword ? 'text' : 'password' }}"
-          id="password"
-          name="password"
-          placeholder="Enter your password"
-          formControlName="password"
-        ></ion-input>
-        <ion-icon
-          class="togglepassword"
-          slot="end"
-          name="{{ showPassword ? 'eye-off' : 'eye' }}"
-          (click)="togglePasswordVisibility()"
-        ></ion-icon>
-      </ion-item>
+  <h1>Welcome,</h1>
+  <h3>Sign in to continue!</h3>
 
-      <ion-button expand="block" (click)="onSubmit()" class="small-button1" color="dark">
-        {{btnLogin}}
+  <ion-form [formGroup]="loginForm" class="login-form">
+    <ion-item>
+      <ion-input label="Email" labelPosition="stacked" placeholder="Email" type="text" inputmode="email"
+        autofocus="true" formControlName="userName"  [(ngModel)]="username" required></ion-input>
+    </ion-item>
 
-      </ion-button>
-    </form>
-  </ion-card>
+    <ion-item>
+      <ion-input label="Password" labelPosition="stacked" placeholder="Password" formControlName="password"
+        type="{{ showPassword ? 'text' : 'password' }}" required></ion-input>
+      <p style="color: #9b9b9b;font-size: 12px;" (click)="togglePasswordVisibility()">
+        {{show_hide?'Hide':'Show'}}
+      </p>
+    </ion-item>
+
+    <ion-button expand="full" (click)="onSubmit()" color="dark">{{ btnLogin }}</ion-button>
+  </ion-form>
 </ion-content>

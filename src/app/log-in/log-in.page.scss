@@ -1,354 +1,81 @@
-/* Add CSS styles to log-in.component.css */
 
-/* Center the content vertically and horizontally */
-ion-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.login-header {
+  background: #000;
 }
 
-/* Style the login container */
-.login-container {
-  padding: 20px 1em;
-  width: 100%;
-  max-width: 400px;
+.login-header {
+  position: relative;
+  background: #000;
+  border-radius: 0em;
 }
 
-/* Adjust the button styles */
-.small-button {
-  background-color: white; /* Set button background color to white */
-  color: black; /* Set button text color to black */
-  font-size: 14px;
-  padding: 10px 16px;
-  margin: 10px 0;
-}
-
-/* Style the image container */
-.img-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
-  margin-bottom: 1em;
-}
-
-.img-container img {
-  max-width: 50%;
-  border-radius: 50%;
-  border: 2px solid black; /* Set image border color to black */
-  margin-bottom: 1em; /* Add 1em space at the bottom of the image */
-}
-
-/* Style the form group */
-.form-group {
-  margin-bottom: 16px;
-}
-
-/* Style the error message */
-.error-message {
-  font-size: 14px;
-  color: red;
-  margin-top: 8px;
-}
-
-/* Adjust the password container styles */
-.password-container {
-  display: flex;
-  align-items: center;
-  border: 1px solid #f6f6f6;
-  border-radius: 8px;
-  padding: 4px;
-}
-
-.password-container ion-input {
-  margin-bottom: 0;
-}
-
-/* Adjust the button styles */
-.small-button1 {
-  font-size: 16px;
-  padding: 12px;
-  min-height: 60px;
-  min-width: 100px;
-  /* background-color: #7DAD3D; */
-  color: white;
-}
-
-/* Style the background of the heading */
-ion-title.tittle {
-  background-color: #1A1E3D;
-  color: white;
-  padding: 1em 0;
-  text-align: center;
-  font-weight: bold;
-}
-
-/* Update styles for two lines */
-ion-title.tittle span {
+.logo-img {
   display: block;
+  width: 260px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-/* Add padding to the page */
-ion-content {
-  --background: #ffffff;
-  padding: 0 2em;
+* {
+  margin: 0;
+  padding: 0;
 }
 
+h1 {
+  margin-top: 15%;
+  margin-bottom: 10px;
+  font-size: 22px;
+  font-weight: 800;
+}
 
+h3 {
+  color: #939fab;
+  font-weight: 600;
+   margin-bottom: 10px;
+}
 
+.login-form {
+  margin-top: 6rem;
 
-
-
-
-
-/* ion-content {
-    --background: #ffffff;
-  }
-  
-  .login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    padding: 20px;
-  }
-  
-  .small-button {
-    font-size: 13px;
-    padding: 6px 12px;
-    margin: 0 auto;
-  }
-  
-  .img-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .small-button1 {
-    font-size: 18px;
-    padding: 4px 6px;
-    min-width: 50px;
-    max-width: 100px;
-  }
-  
-  .img-container img {
-    margin-top: 50px;
-    max-width: 50%;
-    align-self: flex-start;
-  }
-  
-  .login-form {
+  .forgot-password-link {
+    text-decoration: none;
+    display: inline-block;
     width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    text-align: right;
+    font-weight: 600;
+    font-size: 14px;
+    color: #4a4a4a;
   }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .error-message {
-    font-size: 12px;
-    color: red;
-    margin-top: 5px;
-  }
-  
-  .password-container {
-    display: flex;
-    align-items: center;
-    border: 1px solid #f6f6f6;
-    border-radius: 88px;
-    padding: 5px;
-  }
-  
-  .password-container ion-input {
-    flex: 1;
-    margin-bottom: 0;
-  }
-  
-  .btn {
-    --background: #0C99FF;
-    --border-radius: 40px;
-    --border: 3px solid #000;
-  } */
-  
-  /* Media queries for responsiveness */
-  /* Tablets (e.g., iPad) */
-  @media only screen and (min-width: 768px) and (max-width: 1180px) {
-   
-    ion-content {
-      --background: #ffffff;
-    }
-    .login {
-      width: 50%;
-      max-width: 600px;
-      margin: 0 auto; /* This centers the element horizontally */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center; /* This centers the child elements vertically */
-    }
-    .login-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      padding: 20px;
-    }
-    
-    .small-button {
-      font-size: 13px;
-      padding: 6px 12px;
-      margin: 0 auto;
-    }
-    
-    .img-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .small-button1 {
-      font-size: 18px;
-      padding: 4px 6px;
-      min-width: 50px;
-      max-width: 100px;
-    }
-    
-    .img-container img {
-      margin-top: 50px;
-      max-width: 50%;
-      align-self: flex-start;
-    }
-    
-    .login-form {
-      width: 100%;
-      max-width: 6000px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .form-group {
-      margin-bottom: 15px;
-    }
-    
-    .error-message {
-      font-size: 12px;
-      color: red;
-      margin-top: 5px;
-    }
-    
-    .password-container {
-      display: flex;
-      align-items: center;
-      border: 1px solid #f6f6f6;
-      border-radius: 88px;
-      padding: 5px;
-    }
-    
-    .password-container ion-input {
-      flex: 1;
-      margin-bottom: 0;
-    }
-    
-    .btn {
-      --background: #0C99FF;
-      --border-radius: 40px;
-      --border: 3px solid #000;
+
+  ion-button {
+    display: block;
+    margin-top: 3rem;
+    --box-shadow: none;
+    --border-radius: 10px;
+    --background: #000000;
+
+    height: 48px;
+    font-size: 1rem;
+    color: #ffffff;
+    margin-bottom: 0.7rem;
+    text-transform: initial;
+    display: block;
+    margin-top: 3rem;
+
+    ion-icon {
+      margin-right: 0.5rem;
     }
   }
-  
-  /* Laptops and Desktops */
-  @media only screen and (min-width: 1025px) {
-    /* Additional styles for laptops and desktops */
-    /* Add your laptop/desktop-specific styles here */
-    
-    ion-content {
-      --background: #ffffff;
-    }
-    .login {
-      width: 100%;
-      max-width: 600px;
-      margin: 0 auto; /* This centers the element horizontally */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center; /* This centers the child elements vertically */
-    }
-    .login-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      padding: 20px;
-    }
-    
-    .small-button {
-      font-size: 13px;
-      padding: 6px 12px;
-      margin: 0 auto;
-    }
-    
-    .img-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .small-button1 {
-      font-size: 18px;
-      padding: 4px 6px;
-      min-width: 50px;
-      max-width: 100px;
-    }
-    
-    .img-container img {
-      margin-top: 50px;
-      max-width: 50%;
-      align-self: flex-start;
-    }
-    
-    .login-form {
-      width: 50%;
-      max-width: 6000px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .form-group {
-      margin-bottom: 15px;
-    }
-    
-    .error-message {
-      font-size: 12px;
-      color: red;
-      margin-top: 5px;
-    }
-    
-    .password-container {
-      display: flex;
-      align-items: center;
-      border: 1px solid #f6f6f6;
-      border-radius: 88px;
-      padding: 5px;
-    }
-    
-    .password-container ion-input {
-      flex: 1;
-      margin-bottom: 0;
-    }
-    
-    .btn {
-      --background: #0C99FF;
-      --border-radius: 40px;
-      --border: 3px solid #000;
-    }
+}
+
+.footer-text {
+  text-align: center;
+  font-size: 17px;
+  margin-top: 50%;
+
+  a {
+    text-decoration: none;
+    font-weight: 600;
+    color: #fa578e;
   }
-  
+}

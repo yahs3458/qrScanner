@@ -18,6 +18,7 @@ export class LogInPage implements OnInit {
   username: string = ''; 
   showPassword: boolean = false;
   UserAuthReq: any;
+  show_hide: boolean = false
   public loading: boolean = false;
   loginForm: FormGroup;
   password: string = '';
@@ -67,6 +68,7 @@ export class LogInPage implements OnInit {
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
+    this.show_hide = !this.show_hide
   }
 
 
