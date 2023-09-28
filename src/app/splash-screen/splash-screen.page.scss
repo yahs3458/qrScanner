@@ -47,45 +47,119 @@
 //   }
 // }
 
+// @keyframes appearOneByOne {
+//   0% {
+//     opacity: 0;
+//     transform: scale(0.5);
+//   }
+//   50% {
+//     transform: scale(1.1);
+//   }
+//   100% {
+//     opacity: 1;
+//     transform: scale(1);
+//   }
+// }
+
+// .centered-container img {
+//   width: 200px; /* Adjust the width */
+//   height: auto; /* Adjust the height */
+//   opacity: 0; /* Initially hide the images */
+// }
+
+// .centered-container img:nth-child(1) {
+//   animation: appearOneByOne 0.5s ease forwards 0.5s; /* Delay the first image */
+// }
+
+// .centered-container img:nth-child(2) {
+//   animation: appearOneByOne 0.5s ease forwards 1.5s; /* Delay the second image */
+// }
+
+// .centered-container img:nth-child(3) {
+//   animation: appearOneByOne 0.5s ease forwards 2.5s; /* Delay the third image */
+// }
+
+// .centered-container {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 100vh;
+//   position: relative;
+//   background-color: #221f1f; /* Darker background color */
+// }
+
+
 @keyframes appearOneByOne {
   0% {
     opacity: 0;
-    transform: translateX(100%);
+    transform: translateY(20px);
   }
   100% {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes textAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 .centered-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   position: relative;
+  background-color: #1f1f1f; /* Slightly darker background color */
 }
 
-.centered-container img {
-  width: 100px; /* Adjust the width */
-  height: 100px; /* Adjust the height */
-  opacity: 0; /* Initially hide the images */
-  position: absolute;
-  top: 40%; /* Center vertically */
-  transform: translateY(-50%);
+.image-container img {
+  width: 200px; /* Adjust the width */
+  height: auto; /* Adjust the height */
+  filter: grayscale(50%) contrast(150%) brightness(90%) saturate(120%); /* Cool image effect */
 }
 
-.centered-container img:nth-child(1) {
-  left: 15%;
-  animation: appearOneByOne 0.5s ease forwards 0.5s; /* Delay the first image */
+.text-animation {
+  opacity: 0;
+  font-size: 30px;
+  color: #ffffff; /* Cool text color */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* Text shadow for cool effect */
 }
 
-.centered-container img:nth-child(2) {
-  left: 150px; /* Adjust the left value for spacing */
-  animation: appearOneByOne 0.5s ease forwards 1s; /* Delay the second image */
+.image-container {
+  opacity: 1;
+  animation: appearOneByOne 0.5s ease forwards 0.5s; /* Delay the image */
 }
 
-.centered-container img:nth-child(3) {
-  left:240px; /* Adjust the left value for spacing */
-  animation: appearOneByOne 0.5s ease forwards 1.5s; /* Delay the third image */
+.text-animation {
+  animation: textAnimation 0.5s ease forwards 1.5s; /* Delay the text animation */
+}
+@keyframes imageAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.image-container img {
+  width: 200px; /* Adjust the width */
+  height: auto; /* Adjust the height */
+  filter: grayscale(50%) contrast(150%) brightness(90%) saturate(120%); /* Cool image effect */
+}
+
+.image-container {
+  opacity: 1;
+  animation: imageAnimation 1s cubic-bezier(0.6, 0, 0.3, 1) forwards 0.5s; /* Adjust animation properties */
 }

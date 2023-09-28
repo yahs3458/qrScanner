@@ -45,11 +45,14 @@ export class HomePage {
     });
     this.videoElement.srcObject = stream;
     this.videoElement.setAttribute('playsinline', true)
+    this.videoElement.removeAttribute('hidden');  // Make the video element visible
     this.videoElement.play();
     this.loading = await this.loadingCTRL.create({});
     await this.loading.present();
     requestAnimationFrame(this.scan.bind(this));
+    this.scanActive = true; 
   };
+  
   async scan() {
     console.log('scan');
     if (this.videoElement.readyState === this.videoElement.HAVE_ENOUGH_DATA) {
@@ -98,14 +101,17 @@ export class HomePage {
   }
 
   stopScan() {
-    this.scanActive = false;
+    
     if (this.videoElement && this.videoElement.srcObject) {
       const stream = this.videoElement.srcObject as MediaStream;
       const tracks = stream.getTracks();
       tracks.forEach((track) => track.stop());
       this.videoElement.srcObject = null;
     }
-
+    if (this.scanActive) {
+      this.scanActive = false;  // Set scanActive to false when stopping the scan
+      // ... (existing code to stop the scan)
+    }
   };
   reset() {
     this.scanResult = null;

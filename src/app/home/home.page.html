@@ -8,27 +8,20 @@
 
 <ion-content [fullscreen]="true" class="background-image">
   <div class="center-container">
-
+    <img src="assets/qr-code-modern-icon-or-symbol-vector-18038131-removebg-preview.png" class="background-image">
     <ion-button class="startScan" (click)="startScan()" color="dark">
       Start scan
     </ion-button>
-    <video #video [hidden]="!scanActive" width="100%"></video>
+    
+    <ion-label class="scaner"><strong>Scan the QR code on the PCI Website to sign in Directly</strong></ion-label>
 
+    <video #video [hidden]="true" width="100%"></video>
     <canvas #canvas hidden></canvas>
-
-    <ion-label class="scaner">Scan the QR code on the PCI Website to sign in Directly</ion-label>
 
     <ion-button (click)="reset()" color="warning" *ngIf="scanResult">
       <ion-icon slot="start" name="refresh"></ion-icon>
       Reset
     </ion-button>
-
-    <ion-button class="stop" (click)="stopScan()" color="danger" *ngIf="scanActive">
-      <ion-icon slot="start" name="close"></ion-icon>
-      Stop
-    </ion-button>
-
-    
 
   </div>
 </ion-content>

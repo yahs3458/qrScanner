@@ -44,7 +44,7 @@ body {
 .startScan,
 ion-button[ng-reflect-color="danger"] {
   width: 120px;
-  margin-top:200px ;
+  margin-top:15px ;
   margin-bottom: 10px;
 }
 .stop{
@@ -61,4 +61,30 @@ ion-button[ng-reflect-color="danger"] {
     /* Adjust styles for smaller devices (phones) */
     font-size: 14px;
   }
+}
+.background-image {
+ 
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 30vh;
+}
+
+.center-container {
+  position: relative;
+  text-align: center;
+}
+
+.center-container img {
+  width: 50%;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.center-container video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
 }
