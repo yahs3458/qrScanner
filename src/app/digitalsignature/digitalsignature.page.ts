@@ -28,7 +28,6 @@ export class DigitalsignaturePage implements OnInit {
      private toastController: ToastController,
      private router: Router,
      private sanitizer:DomSanitizer,
-    
      ) { }
      capturedsignatureImageBlob: Blob | null = null;
      signatureimage: SafeUrl | null = null;
@@ -156,7 +155,7 @@ name:string="";
   }
 
 
-  onSaveSignature() {
+  async onSaveSignature() {
     this.uploadButtonClicked = true;
     if (this.signatureDataURL) {
       const byteCharacters = atob(this.signatureDataURL.split(',')[1]);
@@ -180,6 +179,14 @@ name:string="";
       // Display the saved signature
       const objectURL = URL.createObjectURL(file);
       this.signatureimage = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      const toast = await this.toastController.create({
+        message:
+          'You have saved the signature please submit',
+        duration: 3000,
+        position: 'bottom',
+        color: 'success',
+      });
+      toast.present();
     } else {
       console.log('No signature to save.');
     }
@@ -188,7 +195,6 @@ name:string="";
     this.submitButtonDisabled = false;
   }
   
-
 
   onResetCanvas() {
     this.signatureDataURL = null;
