@@ -85,16 +85,23 @@ export class HomePage {
       if (code) {
         this.scanActive = false;
         this.scanResult = code.data;
+        this.showQrToast();
       } else {
         if (this.scanActive) {
           requestAnimationFrame(this.scan.bind(this));
         }
       }
+
+
+
     } else {
       requestAnimationFrame(this.scan.bind(this));
     }
+
   }
+
   stopScan() {
+    
     if (this.videoElement && this.videoElement.srcObject) {
       const stream = this.videoElement.srcObject as MediaStream;
       const tracks = stream.getTracks();
@@ -111,6 +118,7 @@ export class HomePage {
   };
   
   async showQrToast() {
+
     this.router.navigate(['/login'],
      { queryParams: { userName: this.scanResult } });
 }
