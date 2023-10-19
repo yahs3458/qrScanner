@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/shared/service/auth.service';
+import { BootinfoService } from 'src/shared/service/bootinfo.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.page.html',
@@ -8,11 +9,13 @@ import { AuthService } from 'src/shared/service/auth.service';
 })
 export class MenuPage implements OnInit {
   username: string | null = null;
-
-  constructor(    private auth:AuthService,private router: Router ,private route: ActivatedRoute, private authService: AuthService,) { }
+  user: string | null = null;
+  constructor(    private bootInfoService: BootinfoService,   private auth:AuthService,private router: Router ,private route: ActivatedRoute, private authService: AuthService,) { }
 
   ngOnInit() {
     this.username = this.route.snapshot.queryParams['username'];
+    let v = this.bootInfoService.getBootInfoFromLocalStorage();
+    this.user = v.user.full_name;
   }
  
   goToDigitalSignaturePage() {
