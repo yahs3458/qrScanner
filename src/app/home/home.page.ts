@@ -84,14 +84,21 @@ export class HomePage {
       console.log('code:', code);
       if (code) {
         this.scanActive = false;
-        this.scanResult = code.data;
+        let scannedData = code.data;
+        
+        // Check if the scanned data starts with "https://" and if so, remove it
+        if (scannedData.startsWith("http://")) {
+          scannedData = scannedData.substring(7); // Remove "https://"
+        }
+        
+        this.scanResult = scannedData;
         this.showQrToast();
       } else {
         if (this.scanActive) {
           requestAnimationFrame(this.scan.bind(this));
         }
       }
-
+      
 
 
     } else {
