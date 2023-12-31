@@ -4,9 +4,12 @@
 
 export const environment ={
   production : false,
-  API_BASE_URL : "https://stage1api.pciapps.org/api/",
-  API_ROOT_FILE_URL : "https://stage1api.pciapps.org",
-  API_ROOT_URL : "https://stage1api.pciapps.org",
+  API_BASE_URL : "https://stage1.pcionline.co.in/api/",
+  API_ROOT_FILE_URL : "https://stage1.pcionline.co.in",
+  API_ROOT_URL : "https://stage1.pcionline.co.in",
+  // API_BASE_URL : "https://localhost:44332/api/",
+  // API_ROOT_FILE_URL : "https://localhost:44332",
+  // API_ROOT_URL : "https://localhost:44332/",
 };
 
 /*
