@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package digitalSignature.ionic.starter;
 
 import com.getcapacitor.BridgeActivity;
 

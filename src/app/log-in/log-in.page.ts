@@ -7,6 +7,7 @@ import { AbstractControl, FormGroup, Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { LocalStorageService, LocalStorage } from 'ngx-webstorage';
 import { ToastrService } from 'ngx-toastr';
+import { ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -17,6 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 export class LogInPage implements OnInit {
   username: string = ''; 
   showPassword: boolean = false;
+  message: string = ""
   UserAuthReq: any;
   show_hide: boolean = false
   public loading: boolean = false;
@@ -26,7 +28,7 @@ export class LogInPage implements OnInit {
   constructor(private router: Router, private authService: AuthService,
     private route:ActivatedRoute,
     private formBuilder: FormBuilder,
-
+    private toastController: ToastController,
     private jwtHelper: JwtHelperService
   ) {
     this.UserAuthReq = { UserName: '', Password: '' }
@@ -77,29 +79,64 @@ export class LogInPage implements OnInit {
   }
 
   onSubmit() {
-    this.btnLogin = "verifying..."
+    this.btnLogin = "verifying...";
     if (this.loginForm.invalid) {
-      this.btnLogin = "Please validate form"
+      this.btnLogin = "Please validate form";
       return;
     }
     this.loading = true;
-    this.authService.login(this.loginForm.value).subscribe(data => {
+    this.authService.login(this.loginForm.value).subscribe((data: any) => { // Specify the type of 'data'
       if (data.isAuthSuccessful) {
-        this.getBootInfo()
-      }
-      else {
-        localStorage.clear();
-        this.btnLogin = data.processingStatus.message
-        // this.toastr.info(data.processingStatus.message); // Use the ToastrService to show the message
+        this.getBootInfo();
+        this.btnLogin = 'Logged In';
+      } else {
+        if (data.processingStatus.statusCode !== 208) {
+          this.btnLogin = 'Login';
+          this.message = data.processingStatus.message;
+        } else {
+          if (data.processingStatus.docstatus == 1) {
+            this.presentLogToast(data.processingStatus);
+            this.btnLogin = 'Login';
+          } else {
+            this.btnLogin = 'Login';
+            this.message = data.processingStatus;
+          }
+        }
       }
       this.loading = false;
-    },
-      () => {
-        this.loading = false;
-      })
-
-
+    }, () => {
+      this.loading = false;
+    });
   }
+  
+
+  async presentLogToast(data: any) {
+    const toast = await this.toastController.create({
+      message: data.message,
+      position: 'bottom',
+      color: 'warning',
+      buttons: [
+        {
+          text: 'Logout',
+          role: 'cancel',
+          handler: () => {
+            this.authService.forceLogout(data.pkId).subscribe(() => {
+              toast.dismiss(); // Dismiss the toast after logging out
+            });
+          }
+        }
+      ]
+    });
+    
+    // Present the toast
+    toast.present();
+  
+    // Schedule dismissal after 10 seconds
+    setTimeout(() => {
+      toast.dismiss();
+    }, 10000);
+  }
+  
   getBootInfo() {
     this.authService.getBootInfo().subscribe(d => {
       this.set_Cache(d)

@@ -2,11 +2,18 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment ={
+
+// export const environment = {
+//   production : false,
+//   API_BASE_URL : "https://backendapi.pcionline.co.in/api/",
+//   API_ROOT_FILE_URL : "https://backendapi.pcionline.co.in",
+//   API_ROOT_URL : "https://backendapi.pcionline.co.in",
+// };
+export const environment = {
   production : false,
-  API_BASE_URL : "https://stage1api.pciapps.org/api/",
-  API_ROOT_FILE_URL : "https://stage1api.pciapps.org",
-  API_ROOT_URL : "https://stage1api.pciapps.org",
+  API_BASE_URL : "https://stage2api.pcionline.co.in/api/",
+  API_ROOT_FILE_URL : "https://stage2api.pcionline.co.in",
+  API_ROOT_URL : "https://stage2api.pcionline.co.in",
 };
 
 /*

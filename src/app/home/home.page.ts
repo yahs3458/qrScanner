@@ -45,7 +45,7 @@ export class HomePage {
     });
     this.videoElement.srcObject = stream;
     this.videoElement.setAttribute('playsinline', true)
-    this.videoElement.removeAttribute('hidden');  // Make the video element visible
+    this.videoElement.removeAttribute('hidden');
     this.videoElement.play();
     this.loading = await this.loadingCTRL.create({});
     await this.loading.present();
