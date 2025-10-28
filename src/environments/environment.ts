@@ -4,6 +4,8 @@
 
 
 export const environment = {
+
+export const environment = {
   production : false,
   API_BASE_URL : "https://stage1api.pcionline.co.in/api/",
   API_ROOT_FILE_URL : "https://stage1api.pcionline.co.in",

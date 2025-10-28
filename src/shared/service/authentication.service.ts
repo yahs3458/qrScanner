@@ -41,6 +41,12 @@ export class AuthenticationService {
     //   }).pipe();
     // }
   
- 
+    logOut(user:string,location:string):Observable<any>{
+      return this.http.get(this.APIBaseUrl + apiUrl.APIURL_Logout+ '/' + user + '/'+location);
+    }
+
+    forceLogout(pid: String): Observable<any> {
+      return this.http.get(this.APIBaseUrl + apiUrl.APIURL_Force_Logout + '/' + pid);
+    }
   }
   

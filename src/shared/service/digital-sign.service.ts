@@ -16,6 +16,7 @@ export class DigitalSignService {
   
      getSignature():Observable<any>{
       return this.http.get(this.APIBaseUrl+this.APIGetUrl);
+      
     }
     
      postSignature(signatureData: any): Observable<any> {

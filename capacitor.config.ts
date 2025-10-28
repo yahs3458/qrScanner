@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'digitalSignature.ionic.starter',
   appName: 'qrScanner',
   webDir: 'www',
   server: {
