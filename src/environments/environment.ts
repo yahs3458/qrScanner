@@ -3,10 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 
-export const environment = {
 
 export const environment = {
-  production : false,
+  production : true,
   API_BASE_URL : "https://stage1api.pcionline.co.in/api/",
   API_ROOT_FILE_URL : "https://stage1api.pcionline.co.in",
   API_ROOT_URL : "https://stage1api.pcionline.co.in",
