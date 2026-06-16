@@ -7,8 +7,9 @@ import { AbstractControl, FormGroup, Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { LocalStorageService, LocalStorage } from 'ngx-webstorage';
 import { ToastrService } from 'ngx-toastr';
-import { ToastController } from '@ionic/angular';
+import { ToastController ,AlertController  } from '@ionic/angular';
 import { CustomCaptchaComponent } from '../custom-captcha/custom-captcha.component';
+
 
 
 @Component({
@@ -33,6 +34,7 @@ export class LogInPage implements OnInit {
     private route:ActivatedRoute,
     private formBuilder: FormBuilder,
     private toastController: ToastController,
+    private alertController: AlertController,
     private jwtHelper: JwtHelperService
   ) {
     this.UserAuthReq = { UserName: '', Password: '' }
@@ -122,6 +124,7 @@ export class LogInPage implements OnInit {
   //   });
   // }
 onSubmit() {
+
   this.btnLogin = 'Verifying...';
 
   if (this.loginForm.invalid) {
@@ -132,41 +135,132 @@ onSubmit() {
   const val = this.loginForm.get('recaptcha')?.value;
 
   if (!val || !val.captchaId || !val.answer?.trim()) {
+
     this.captchaChild.triggerShake();
+
     this.btnLogin = 'Invalid Captcha';
+
     return;
   }
 
-  // ✅ FLATTEN PAYLOAD (SAME AS SECOND LOGIN)
   const payload = {
+
     userName: this.loginForm.value.userName,
     password: this.loginForm.value.password,
     captchaId: val.captchaId,
     answer: val.answer.trim()
+
   };
 
   this.loading = true;
 
   this.authService.login(payload).subscribe({
-    next: (data: any) => {
+
+    next: async (data: any) => {
+
+      this.loading = false;
+
       if (data.isAuthSuccessful) {
+
         this.getBootInfo();
         this.btnLogin = 'Logged In';
-      } else {
-        this.captchaChild.refresh();
-        this.captchaChild.triggerShake();
-        this.btnLogin = 'Login';
-        this.message = data.processingStatus?.message || '';
+        return;
+
       }
-      this.loading = false;
-    },
-    error: () => {
-      this.loading = false;
+
+      // ===== MULTIPLE LOGIN =====
+
+      if (
+        data.processingStatus &&
+        data.processingStatus.statusCode == 208 &&
+        data.processingStatus.docstatus == 1
+      ) {
+
+        this.btnLogin = "Login";
+
+        this.showMultipleLoginPopup(data.processingStatus);
+
+        return;
+
+      }
+
+      // ===== OTHER ERRORS =====
+
+      this.captchaChild.refresh();
+      this.captchaChild.triggerShake();
+
       this.btnLogin = 'Login';
+
+      
+const alert = await this.alertController.create({
+  header: 'Login Failed',
+  message: (data.processingStatus?.message || 'Login Failed')
+  .replace(/<br\s*\/?>/gi, ' '),
+  buttons: ['OK']
+});
+
+await alert.present();
+
+    },
+
+    error: () => {
+
+      this.loading = false;
+
+      this.btnLogin = 'Login';
+
     }
+
   });
+
 }
 
+async showMultipleLoginPopup(data: any) {
+
+  const alert = await this.alertController.create({
+    header: 'Multiple Login',
+    message: data.message,
+    backdropDismiss: false,
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel'
+      },
+      {
+        text: 'Logout',
+        handler: () => {
+
+          this.authService.forceLogout(data.pkId).subscribe({
+            next: () => {
+  // Refresh captcha
+  this.captchaChild.refresh();
+
+  // Clear Password
+  this.loginForm.get('password')?.setValue('');
+
+  // Clear Captcha
+  this.loginForm.get('recaptcha')?.reset();
+
+  // Agar username ngModel se bind hai to usko bhi clear karo
+ 
+  this.password = '';
+
+  // Reset button
+  this.btnLogin = 'Login';
+
+            },
+            error: () => {
+              this.btnLogin = 'Login';
+            }
+          });
+
+        }
+      }
+    ]
+  });
+
+  await alert.present();
+}
 
   async presentLogToast(data: any) {
     const toast = await this.toastController.create({
