@@ -42,9 +42,11 @@ const routes: Routes = [
     path: 'user-info',
     loadChildren: () => import('./user-info/user-info.module').then( m => m.UserInfoPageModule)
   },
-
  
-
+  //  {
+  //   path: 'custom-captcha',
+  //   loadChildren: () => import('./custom-captcha/custom-captcha-routing.module').then( m => m.CustomCaptchaRoutigModule)
+  // },
 ];
 
 @NgModule({

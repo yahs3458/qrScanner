@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/shared/service/auth.service';
@@ -8,6 +8,7 @@ import { FormBuilder } from '@angular/forms';
 import { LocalStorageService, LocalStorage } from 'ngx-webstorage';
 import { ToastrService } from 'ngx-toastr';
 import { ToastController } from '@ionic/angular';
+import { CustomCaptchaComponent } from '../custom-captcha/custom-captcha.component';
 
 
 @Component({
@@ -25,6 +26,9 @@ export class LogInPage implements OnInit {
   loginForm: FormGroup;
   password: string = '';
   btnLogin: string = "Login";
+
+    @ViewChild(CustomCaptchaComponent) captchaChild!: CustomCaptchaComponent;
+
   constructor(private router: Router, private authService: AuthService,
     private route:ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -48,8 +52,9 @@ export class LogInPage implements OnInit {
           // 2. check whether the entered password has a number
 
         ])
+        
         ],
-
+         recaptcha: [null, Validators.required],
       });
   }
   ngOnInit() {
@@ -78,37 +83,90 @@ export class LogInPage implements OnInit {
     return this.loginForm.controls;
   }
 
-  onSubmit() {
-    this.btnLogin = "verifying...";
-    if (this.loginForm.invalid) {
-      this.btnLogin = "Please validate form";
-      return;
-    }
-    this.loading = true;
-    this.authService.login(this.loginForm.value).subscribe((data: any) => { // Specify the type of 'data'
+  // onSubmit() {
+  //   this.btnLogin = "verifying...";
+  //   if (this.loginForm.invalid) {
+  //     this.btnLogin = "Please validate form";
+  //     return;
+  //   }
+
+  //      const val = this.loginForm.get('recaptcha')?.value;
+  //   if (!val || !val.captchaId || !val.answer || val.answer.trim() === '') {
+  //     this.captchaChild.triggerShake();
+  //     this.btnLogin = 'Invalid Credentials';
+  //     return;
+  //   }
+
+  //   this.loading = true;
+  //   this.authService.login(this.loginForm.value).subscribe((data: any) => { // Specify the type of 'data'
+  //     if (data.isAuthSuccessful) {
+  //       this.getBootInfo();
+  //       this.btnLogin = 'Logged In';
+  //     } else {
+  //       if (data.processingStatus.statusCode !== 208) {
+  //         this.btnLogin = 'Login';
+  //         this.message = data.processingStatus.message;
+  //       } else {
+  //         if (data.processingStatus.docstatus == 1) {
+  //           this.presentLogToast(data.processingStatus);
+  //           this.btnLogin = 'Login';
+  //         } else {
+  //           this.btnLogin = 'Login';
+  //           this.message = data.processingStatus;
+  //         }
+  //       }
+  //     }
+  //     this.loading = false;
+  //   }, () => {
+  //     this.loading = false;
+  //   });
+  // }
+onSubmit() {
+  this.btnLogin = 'Verifying...';
+
+  if (this.loginForm.invalid) {
+    this.btnLogin = 'Please validate form';
+    return;
+  }
+
+  const val = this.loginForm.get('recaptcha')?.value;
+
+  if (!val || !val.captchaId || !val.answer?.trim()) {
+    this.captchaChild.triggerShake();
+    this.btnLogin = 'Invalid Captcha';
+    return;
+  }
+
+  // ✅ FLATTEN PAYLOAD (SAME AS SECOND LOGIN)
+  const payload = {
+    userName: this.loginForm.value.userName,
+    password: this.loginForm.value.password,
+    captchaId: val.captchaId,
+    answer: val.answer.trim()
+  };
+
+  this.loading = true;
+
+  this.authService.login(payload).subscribe({
+    next: (data: any) => {
       if (data.isAuthSuccessful) {
         this.getBootInfo();
         this.btnLogin = 'Logged In';
       } else {
-        if (data.processingStatus.statusCode !== 208) {
-          this.btnLogin = 'Login';
-          this.message = data.processingStatus.message;
-        } else {
-          if (data.processingStatus.docstatus == 1) {
-            this.presentLogToast(data.processingStatus);
-            this.btnLogin = 'Login';
-          } else {
-            this.btnLogin = 'Login';
-            this.message = data.processingStatus;
-          }
-        }
+        this.captchaChild.refresh();
+        this.captchaChild.triggerShake();
+        this.btnLogin = 'Login';
+        this.message = data.processingStatus?.message || '';
       }
       this.loading = false;
-    }, () => {
+    },
+    error: () => {
       this.loading = false;
-    });
-  }
-  
+      this.btnLogin = 'Login';
+    }
+  });
+}
+
 
   async presentLogToast(data: any) {
     const toast = await this.toastController.create({
@@ -154,9 +212,9 @@ export class LogInPage implements OnInit {
 
     this.btnLogin = "success"
 
-    this.router.navigate(['user-info'], {
-      queryParams: { username: boot['user'].full_name }
-    });
+    // this.router.navigate(['user-info'], {
+    //   queryParams: { username: boot['user'].full_name }
+    // });
 
     this.router.navigate(['admin', boot.allowed_workspaces[0].name.toLowerCase(), 'menu'], {
       queryParams: { username: boot['user'].full_name } // Pass the username as a query parameter

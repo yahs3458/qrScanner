@@ -4,28 +4,21 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LogInPageRoutingModule } from './log-in-routing.module';
 
-import { LogInPage } from './log-in.page';
 import { AuthenticationService } from 'src/shared/service/authentication.service';
 import { ExceptionService } from 'src/shared/service/exception.service';
 import { HttpClientModule } from '@angular/common/http';
-import {  CustomCaptchaModule } from '../custom-captcha/custom-captcha.module';
+import { CustomCaptchaComponent } from './custom-captcha.component';
 
 
 @NgModule({
+  declarations: [CustomCaptchaComponent],
   imports: [
     CommonModule,
     FormsModule,
-   IonicModule,
-    LogInPageRoutingModule,
-    ReactiveFormsModule, 
-    HttpClientModule,
-   CustomCaptchaModule
-    
+    ReactiveFormsModule,
+    IonicModule
   ],
-  declarations: [LogInPage],
-  providers:[AuthenticationService,ExceptionService]
+  exports: [CustomCaptchaComponent] // ⭐ REQUIRED
 })
-
-export class LogInPageModule {}
+export class CustomCaptchaModule {}
