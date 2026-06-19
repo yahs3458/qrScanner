@@ -1,8 +1,9 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DigitalSignService } from 'src/shared/service/digital-sign.service';
-import { ToastController, NavController } from '@ionic/angular';
+import { ToastController, NavController,AlertController } from '@ionic/angular';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-digitalsignature',
   templateUrl: './digitalsignature.page.html',
@@ -15,6 +16,7 @@ export class DigitalsignaturePage implements OnInit {
   saveButtonClicked = false;
   submitButtonDisabled = true;
   apiResponse: any;
+  submitBlocked: boolean = false;
 
   @ViewChild('signatureCanvas', { static: false }) signatureCanvas: ElementRef<HTMLCanvasElement> | undefined;
   private ctx: CanvasRenderingContext2D | any;
@@ -26,6 +28,7 @@ export class DigitalsignaturePage implements OnInit {
 
   constructor(private digitalSignService: DigitalSignService,
      private toastController: ToastController,
+     private alertController: AlertController,
      private router: Router,
      private sanitizer:DomSanitizer,
      ) { }
@@ -223,52 +226,100 @@ name:string="";
   onResize(event: Event) {
     // Handle canvas resizing if required
   }
-  postSignature(data: FormData) {
+async postSignature(data: FormData) {
 
-    this.digitalSignService.postSignature(data).subscribe({
-      next: (res) => {
-        console.log('Response from server:', res);
-       this.name=res.pkId
-      },
-      error: (error) => {
-        console.error('Error while posting data:', error);
-      },
-    });
-  }
+  this.digitalSignService.postSignature(data).subscribe({
 
+    next: async (res: any) => {
 
-  async onSubmit() {
-    const formData = new FormData();
-    this.submitButtonDisabled = !this.uploadButtonClicked;
-    if (
-      this.capturedsignatureImageBlob
-    ) {
-     
-      formData.append('signature1', this.capturedsignatureImageBlob);
-      formData.append('name',this.name);
-      // Log the data before making the HTTP request
-      console.log('Data to be submitted:', formData);
+      this.name = res.pkId;
 
-      this.postSignature(formData);
-
+      // ✅ Success -> Toast
       const toast = await this.toastController.create({
-        message: 'Data submitted successfully!',
+        message: res?.message || 'Data submitted successfully!',
         duration: 3000,
         position: 'bottom',
-        color: 'dark',
+        color: 'success',
       });
-      toast.present();
-    } else {
-      const toast = await this.toastController.create({
-        message:
-          'Please provide an image, a signature, and a declaration text before submitting.',
-        duration: 3000,
-        position: 'bottom',
-        color: 'danger',
+
+      await toast.present();
+
+      this.submitBlocked = true;
+      this.submitButtonDisabled = true;
+
+    },
+
+    error: async (error) => {
+
+      // ❌ Error -> Alert
+      const alert = await this.alertController.create({
+        header: 'Alert',
+        message: error?.error?.message || 'Something went wrong.',
+        buttons: ['OK']
       });
-      toast.present();
+
+      await alert.present();
+
+      this.submitBlocked = true;
+      this.submitButtonDisabled = true;
+
     }
+
+  });
+
+}
+// CHANGE END
+  //  CHANGE START - onSubmit()
+
+async onSubmit() {
+
+  //  CHANGE
+  if (this.submitBlocked) {
+    return;
   }
+
+  const formData = new FormData();
+
+  this.submitButtonDisabled = !this.uploadButtonClicked;
+
+  if (this.capturedsignatureImageBlob) {
+
+    formData.append('signature1', this.capturedsignatureImageBlob);
+    formData.append('name', this.name);
+
+    console.log('Data to be submitted:', formData);
+
+    this.postSignature(formData);
+
+    // CHANGE
+    // REMOVE THIS SUCCESS TOAST
+    /*
+    const toast = await this.toastController.create({
+      message: 'Data submitted successfully!',
+      duration: 3000,
+      position: 'bottom',
+      color: 'dark',
+    });
+    toast.present();
+    */
+
+  } else {
+
+    const toast = await this.toastController.create({
+      message:
+        'Please provide an image, a signature, and a declaration text before submitting.',
+      duration: 3000,
+      position: 'bottom',
+      color: 'danger',
+    });
+
+    await toast.present();
+
+  }
+
+}
+
+//  CHANGE END
   getsignature(){
     this.digitalSignService.getSignature().subscribe(
       (response) => {
